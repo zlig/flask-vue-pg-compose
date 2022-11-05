@@ -19,7 +19,7 @@ def hi(name=None):
 
 @app.route("/ping")
 def ping():
-    return jsonify({"pong"}), 200
+    return jsonify({"response": "pong"}), 200
 
 @app.errorhandler(404)
 def page_not_found(e):
