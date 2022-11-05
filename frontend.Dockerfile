@@ -1,5 +1,16 @@
-FROM node:7.7.2-alpine
-WORKDIR /usr/app
-COPY package.json .
-RUN npm install --quiet
-COPY . .
+# Source:
+#   https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
+FROM python:3.9-slim-bullseye
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Install dependencies:
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Run the application:
+COPY myapp.py .
+CMD ["python", "myapp.py"]
+

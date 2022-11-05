@@ -52,5 +52,7 @@ services:
       - -c
       - npm run watch
 
-# TODO
+# TODO Docs
 # - https://github.com/mdn/developer-portal/blob/master/docker-compose.yml
+# - https://medium.com/freestoneinfotech/simplifying-docker-compose-operations-using-makefile-26d451456d63
+# - https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
