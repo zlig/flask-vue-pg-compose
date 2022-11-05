@@ -11,7 +11,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy application contents
-COPY index.html .
+RUN mkdir templates/
+COPY index.html ./templates/
 
 # Run the application:
 COPY frontend.py .

@@ -54,6 +54,6 @@ services:
 # - https://runnable.com/docker/python/docker-compose-with-flask-apps
 # - https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
 # - https://www.digitalocean.com/community/tutorials/how-to-use-templates-in-a-flask-application#
-# - 
+# 
 # - Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
-
+# - docker-compose build --progress plain --no-cache
