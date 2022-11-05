@@ -10,6 +10,9 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# Copy application contents
+COPY index.html .
+
 # Run the application:
 COPY frontend.py .
 CMD ["python", "frontend.py"]
