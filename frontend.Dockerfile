@@ -11,6 +11,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Run the application:
-COPY myapp.py .
-CMD ["python", "myapp.py"]
+COPY frontend.py .
+CMD ["python", "frontend.py"]
 
