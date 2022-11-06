@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 from flask import Flask, render_template, jsonify
+from redis import Redis
 
 app = Flask(__name__)
 app.debug=True
+redis = Redis(host='info-redis', port=6379)
 
 @app.route("/")
 @app.route("/hello")
@@ -20,6 +22,12 @@ def hi(name=None):
 @app.route("/ping")
 def ping():
     return jsonify({"response": "pong"}), 200
+
+@app.route('/redis')
+def hello():
+    redis.incr('hits')
+    views = int.from_bytes(redis.get('hits'))
+    return jsonify({"data": str(views)}), 200
 
 @app.errorhandler(404)
 def page_not_found(e):
