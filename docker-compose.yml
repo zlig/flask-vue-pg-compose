@@ -46,6 +46,14 @@ services:
     init: true
     ports:
       - "8081:8081"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 20M
     #depends_on:
     #  - info-db
 
