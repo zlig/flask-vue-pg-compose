@@ -15,8 +15,8 @@ services:
       - POSTGRES_DB=${INFO_DB_NAME:-info}
       - PG_DATA=/data/postgres
     volumes:
-      #- "./local-dev/init/pg_bootstrap.sql:/docker-entrypoint-initdb.d/pg_bootstrap.sql"
       - "./info-db-data:/data/postgres"
+      - "./info-db/sql/create_tables.sql:/data/sql/create_tables.sql"
     ports:
       - "5432:5432"
     restart: unless-stopped
