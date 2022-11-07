@@ -25,9 +25,6 @@ services:
         limits:
           cpus: '0.2'
           memory: 50M
-        reservations:
-          cpus: '0.1'
-          memory: 20M
     #healthcheck:
     #  test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
     #  interval: 10s
@@ -46,9 +43,6 @@ services:
         limits:
           cpus: '0.2'
           memory: 50M
-        reservations:
-          cpus: '0.1'
-          memory: 20M
 
   frontend:
     container_name: info-frontend
@@ -67,9 +61,6 @@ services:
         limits:
           cpus: '0.2'
           memory: 50M
-        reservations:
-          cpus: '0.1'
-          memory: 20M
     #depends_on:
     #  - info-db
 
