@@ -2,6 +2,35 @@
 
 Build a Python Flask web application combined with Vue.js and a PostgreSQL database in a Docker Compose file for local development
 
+## Usage
+
+### Edit configuration
+
+Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
+
+`vim .env`
+
+
+### Build images
+
+`docker-compose build`
+
+### Run containers
+
+`docker-compose up -d`
+
+### Check logs
+
+`docker-compose logs` or `docker-compose logs -f`
+
+### Check current resources usage
+
+`docker-compose top`
+
+### Stop containers
+
+`docker-compose down`
+
 ## Resources
 
 - https://github.com/mdn/developer-portal/blob/master/docker-compose.yml
