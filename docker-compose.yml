@@ -64,8 +64,3 @@ services:
     #depends_on:
     #  - info-db
 
-# TODO Docs
-# 
-# - Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
-# - docker-compose build --progress plain --no-cache
-# - docker-compose top

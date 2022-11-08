@@ -13,7 +13,7 @@ Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 ### Build images
 
-`docker-compose build`
+`docker-compose build` or `docker-compose build --progress plain --no-cache`
 
 ### Run containers
 
@@ -30,6 +30,10 @@ Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 ### Stop containers
 
 `docker-compose down`
+
+### Extras
+
+Use `docker scan` to run Snyk tests against images to find vulnerabilities and learn how to fix them
 
 ## Resources
 
