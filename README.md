@@ -4,34 +4,75 @@ Build a Python Flask web application combined with Vue.js and a PostgreSQL datab
 
 ## Usage
 
-### Edit configuration
+### General Usage
+
+#### Edit configuration
 
 Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 `vim .env`
 
 
-### Build images
+#### Build images
 
 `docker-compose build` or `docker-compose build --progress plain --no-cache`
 
-### Run containers
+#### Run containers
 
 `docker-compose up -d`
 
-### Check logs
+#### Check logs
 
 `docker-compose logs` or `docker-compose logs -f`
 
-### Check current resources usage
+#### Check current resources usage
 
 `docker-compose top`
 
-### Stop containers
+#### Stop containers
 
 `docker-compose down`
 
-### Extras
+### PostgreSQL usage
+
+Connect into PostgreSQL container:
+
+`$ docker-compose exec info-db bash`
+
+Executes commands on the PostgreSQL container:
+
+```
+Connect to database instance 
+$ pgsql
+```
+
+```
+-- Show connection info
+\conninfo
+
+-- List databases
+\l
+
+-- Connect to info database
+\c infodb
+
+-- List relations of the public schema
+\dt
+
+-- List relations of infodb schema
+\dt infodb.*
+
+-- List tables of all schemas
+\dt
+
+-- Shows help
+\?
+
+-- Quit PSQL
+\q
+```
+
+### Usage Extras
 
 Use `docker scan` to run Snyk tests against images to find vulnerabilities and learn how to fix them
 
