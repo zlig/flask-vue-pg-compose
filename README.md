@@ -35,16 +35,16 @@ Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 ### PostgreSQL usage
 
-Connect into PostgreSQL container:
+* Connect into PostgreSQL container:
 
 `$ docker-compose exec info-db bash`
 
-Executes commands on the PostgreSQL container:
 
-```
-Connect to database instance 
-$ pgsql
-```
+* Connect to database instance:
+
+`$ pgsql`
+
+* Executes commands on the PostgreSQL container via the `psql` utility:
 
 ```
 -- Show connection info
