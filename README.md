@@ -85,3 +85,4 @@ Use `docker scan` to run Snyk tests against images to find vulnerabilities and l
 - https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
 - https://www.digitalocean.com/community/tutorials/how-to-use-templates-in-a-flask-application#
 - https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
+- https://github.com/quay/quay
