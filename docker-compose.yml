@@ -6,7 +6,6 @@ services:
   info-db:
     container_name: info-db
     image: docker.io/library/postgres:12.1
-    restart: always
     user: postgres
     environment:
       - TZ=Europe/Dublin
