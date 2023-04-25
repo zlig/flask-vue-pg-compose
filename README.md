@@ -74,7 +74,7 @@ Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 * Connect to database instance:
 
-`$ pgsql`
+`$ psql`
 
 * Executes commands on the PostgreSQL container via the `psql` utility:
 
