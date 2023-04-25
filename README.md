@@ -23,6 +23,19 @@ EOF
 sudo chmod +x /usr/bin/docker-compose
 ```
 
+Additionally, on a Linux workstation, executes the following commands to add the current user to the docker group to allow running it without `sudo`:
+```
+# Creates docker group (it should already exist)
+sudo groupadd docker
+
+# Add current userto docker group
+sudo usermod -aG docker $USER
+
+# Set ACL for user on docker socket
+sudo setfacl -m user:$USER:rw /var/run/docker.sock
+```
+
+
 ### General Usage
 
 #### Edit configuration
