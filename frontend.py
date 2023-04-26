@@ -1,8 +1,18 @@
 #!/usr/bin/env python
+import os
+
 from flask import Flask, render_template, jsonify
+from flask_sqlalchemy import SQLAlchemy
 from redis import Redis
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
 app = Flask(__name__)
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
 redis = Redis(host='info-redis', port=6379)
 
 @app.route("/")
