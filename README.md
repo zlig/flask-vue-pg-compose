@@ -65,6 +65,12 @@ Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 `docker-compose down`
 
+#### Containers usage
+
+In general, the prompt for a terminal session can be opened on a pod with the following command:
+
+`docker exec -ti info-frontend bash`
+
 ### PostgreSQL usage
 
 * Connect into PostgreSQL container:
