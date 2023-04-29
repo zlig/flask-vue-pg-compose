@@ -60,6 +60,6 @@ services:
         limits:
           cpus: '0.2'
           memory: 50M
-    #depends_on:
-    #  - info-db
+    depends_on:
+      - info-db
 
