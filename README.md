@@ -8,7 +8,7 @@ Build a Python Flask web application combined with Vue.js and a PostgreSQL datab
 
 On recent versions of Docker, Docker Compose is included.
 
-A simple workaround to alllow running the commands documented below is to add an alias to the .bashrc or .zshrc configuration of the current workstation or server:
+A simple workaround to allow running the commands documented below is to add an alias to the .bashrc or .zshrc configuration of the current workstation or server:
 ```
 alias docker-compose='docker compose'
 ```
