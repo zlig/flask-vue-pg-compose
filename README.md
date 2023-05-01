@@ -6,7 +6,7 @@ Build a Python Flask web application combined with Vue.js and a PostgreSQL datab
 
 ### Prerequisites
 
-On recent versions of Docker, Docker Compose is included.
+On recent versions of Docker, Docker Compose is included, which can create a conflict with the following commands based on `docker-compose`.
 
 A simple workaround to allow running the commands documented below is to add an alias to the .bashrc or .zshrc configuration of the current workstation or server:
 ```
