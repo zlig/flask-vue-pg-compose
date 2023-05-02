@@ -2,6 +2,7 @@
 
 Build a Python Flask web application combined with Vue.js and a PostgreSQL database in a Docker Compose file for local development
 
+
 ## Usage
 
 ### Prerequisites
@@ -35,7 +36,6 @@ sudo usermod -aG docker $USER
 sudo setfacl -m user:$USER:rw /var/run/docker.sock
 ```
 
-
 ### General Usage
 
 #### Edit configuration
@@ -43,7 +43,6 @@ sudo setfacl -m user:$USER:rw /var/run/docker.sock
 Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 `vim .env`
-
 
 #### Build images
 
@@ -109,7 +108,6 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 -- Quit PSQL
 \q
 ```
-
 
 ## Resources
 
