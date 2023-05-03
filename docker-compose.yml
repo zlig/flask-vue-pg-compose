@@ -14,8 +14,8 @@ services:
       - POSTGRES_DB=${INFO_DB_NAME:-info}
       - PG_DATA=/data/postgres
     volumes:
-      - "./info-db-data:/data/postgres"
       - "./info-db/sql/create_tables.sql:/data/sql/create_tables.sql"
+      - "./info-db-data:/data/postgres"
     ports:
       - "5432:5432"
     restart: unless-stopped
