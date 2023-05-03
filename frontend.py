@@ -10,12 +10,12 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Application
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
+#app.config.from_object(os.environ['APP_SETTINGS'])
 
 # DB Session
-SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+#SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#db = SQLAlchemy(app)
 
 # Redis
 redis = Redis(host='info-redis', port=6379)
