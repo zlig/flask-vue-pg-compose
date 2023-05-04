@@ -50,7 +50,14 @@ Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 #### Run containers
 
+The containers can be run as background tasks with the following command:
+
 `docker-compose up -d`
+
+
+To start the containers only in the current terminal and see the logs live, run this command instead:
+
+`docker-compose up --remove-orphans`
 
 #### Check logs
 
@@ -68,7 +75,7 @@ Ensure to edit *.gitignore* to add `.env` if using sensitive credentials
 
 In general, the prompt for a terminal session can be opened on a pod with the following command:
 
-`docker exec -ti info-frontend bash`
+`docker-compose exec <db|redis|frontend> bash`
 
 ### PostgreSQL usage
 
