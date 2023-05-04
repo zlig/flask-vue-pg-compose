@@ -1,35 +1,37 @@
-version: "3.8"
+version: '3.8'
+
 volumes:
-  info-db-data:
+  db-volume:
+    driver: local
 
 services:
+
   info-db:
     container_name: info-db
-    image: docker.io/library/postgres:12.1
-    user: postgres
+    image: postgres:14.1-alpine
+    restart: unless-stopped
     environment:
       - TZ=Europe/Dublin
       - POSTGRES_USER=${INFO_DB_USERNAME:-admin}
       - POSTGRES_PASSWORD=${INFO_DB_PASSWORD:-Secret432}
       - POSTGRES_DB=${INFO_DB_NAME:-info}
-      - PG_DATA=/data/postgres
+      - PGDATA=/data/postgres
+    ports:
+      - '5432:5432'
     volumes:
       - "./info-db/sql/create_tables.sql:/data/sql/create_tables.sql"
-      - "./info-db-data:/data/postgres"
-    ports:
-      - "5432:5432"
-    restart: unless-stopped
+      - db-volume:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
           cpus: '0.2'
           memory: 50M
-    #healthcheck:
-    #  test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-    #  interval: 10s
-    #  timeout: 9s
-    #  retries: 3
-    #  start_period: 10s
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${INFO_DB_USERNAME:-admin} -d ${INFO_DB_NAME:-info}"]
+      interval: 10s
+      timeout: 9s
+      retries: 3
+      start_period: 60s
 
   redis:
     container_name: info-redis
