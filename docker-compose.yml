@@ -61,6 +61,11 @@ services:
     container_name: info-frontend
     image: docker.io/library/alpine:latest
     user: ${DOCKER_USER:-root}
+    environment:
+      - TZ=Europe/Dublin
+      - POSTGRES_USER=${INFO_DB_USERNAME:-admin}
+      - POSTGRES_PASSWORD=${INFO_DB_PASSWORD:-Secret432}
+      - POSTGRES_DB=${INFO_DB_NAME:-info}
     build:
       dockerfile: frontend.Dockerfile
       context: .
