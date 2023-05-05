@@ -30,7 +30,7 @@ services:
       - db
     volumes:
       - "./info-db/sql/create_tables.sql:/data/sql/create_tables.sql"
-      - db-volume:/var/lib/postgresql/data
+      - db-volume:/data/postgres
     deploy:
       resources:
         limits:
