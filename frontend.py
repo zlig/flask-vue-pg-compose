@@ -7,14 +7,18 @@ from redis import Redis
 
 # Global Config
 basedir = os.path.abspath(os.path.dirname(__file__))
+db_user = os.environ['POSTGRES_USER']
+db_pass = os.environ['POSTGRES_PASSWORD']
+db_host = "info-db"
+db_port = "5432"
+db_name = os.environ['POSTGRES_DB']
 
 # Application
 app = Flask(__name__)
 #app.config.from_object(os.environ['APP_SETTINGS'])
 
 # DB Session
-SQLALCHEMY_DATABASE_URI = "postgresql://%s:%s@%s:%s/%s" % (os.environ['POSTGRES_USER'], os.environ['POSTGRES_PASSWORD'], "info-db", "5432", os.environ['POSTGRES_DB'])
-#SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+SQLALCHEMY_DATABASE_URI = f'postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
