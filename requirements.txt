@@ -1,4 +1,6 @@
 flask
 requests
 redis
+SQLAlchemy
 Flask-SQLAlchemy
+psycopg2
