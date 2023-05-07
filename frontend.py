@@ -77,6 +77,10 @@ def add_user():
                        bio='Simple user')
     return jsonify({"data": str(johndoe.id)}), 200
 
+@app.route('/init')
+def init():
+    db.create_all()
+
 @app.errorhandler(404)
 def page_not_found(e):
     return jsonify({"data": "not found", "error": "resource not found"}), 404
