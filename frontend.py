@@ -80,7 +80,7 @@ def add_user():
 @app.route('/init')
 def init():
     db.create_all()
-    return jsonify({"data": "data tables created"}), 200
+    return jsonify({"data": "All tables created."}), 200
 
 @app.errorhandler(404)
 def page_not_found(e):
