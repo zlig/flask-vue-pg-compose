@@ -81,12 +81,15 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 
 * Connect into PostgreSQL container:
 
-`$ docker-compose exec info-db bash`
+`$ docker-compose exec db bash`
 
+* Change to postgres user:
+
+`bash-5.1# su postgres`
 
 * Connect to database instance:
 
-`$ psql`
+`/ $ psql`
 
 * Executes commands on the PostgreSQL container via the `psql` utility:
 
