@@ -87,7 +87,7 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 
 `bash-5.1# su postgres -c psql`
 
-* Executes commands on the PostgreSQL container via the `psql` utility:
+* Executes commands in the PostgreSQL container with the `psql` utility:
 
 ```
 -- Show connection info
