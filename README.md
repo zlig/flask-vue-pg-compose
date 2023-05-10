@@ -125,3 +125,5 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 - https://www.digitalocean.com/community/tutorials/how-to-use-templates-in-a-flask-application#
 - https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
 - https://github.com/quay/quay
+- https://www.digitalocean.com/community/tutorials/how-to-use-a-postgresql-database-in-a-flask-application
+
