@@ -97,13 +97,13 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 \l
 
 -- Connect to info database
-\c infodb
+\c info_db
 
 -- List relations of the public schema
 \dt
 
--- List relations of infodb schema
-\dt infodb.*
+-- List relations of info_db schema
+\dt info_db.*
 
 -- List tables of all schemas
 \dt
