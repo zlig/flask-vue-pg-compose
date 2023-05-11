@@ -33,7 +33,7 @@ db = SQLAlchemy(app)
 redis = Redis(host='info-redis', port=6379)
 
 # Models
-class User(db.Model):
+class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
@@ -43,7 +43,7 @@ class User(db.Model):
     bio = db.Column(db.Text)
 
     def __repr__(self):
-        return f'<User {self.firstname}>'
+        return f'<Account {self.firstname}>'
 
 
 @app.route("/")
@@ -72,13 +72,14 @@ def hello():
 
 @app.route('/add')
 def add_user():
-    johndoe = User(firstname='john', lastname='doe',
+    johndoe = Account(firstname='john', lastname='doe',
                        email='jd@example.com', age=79,
                        bio='Simple user')
     return jsonify({"data": str(johndoe.id)}), 200
 
 @app.route('/init')
 def init():
+    db.drop_all()
     db.create_all()
     return jsonify({"data": "All tables created."}), 200
 
