@@ -22,7 +22,7 @@ services:
       - TZ=Europe/Dublin
       - POSTGRES_USER=${INFO_DB_USERNAME:-admin}
       - POSTGRES_PASSWORD=${INFO_DB_PASSWORD:-Secret432}
-      - POSTGRES_DB=${INFO_DB_NAME:-info}
+      - POSTGRES_DB=${INFO_DB_NAME:-info_db}
       - PGDATA=/data/postgres
     ports:
       - '5432:5432'
