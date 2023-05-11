@@ -4,7 +4,7 @@ import os
 from flask import Flask, render_template, jsonify, request, url_for, redirect
 import json
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, exc, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import func
@@ -79,7 +79,10 @@ def add_user():
 
 @app.route('/init')
 def init():
-    db.drop_all()
+    #try:
+    #    db.drop_all()
+    #except OperationalError:
+    #    pass
     db.create_all()
     return jsonify({"data": "All tables created."}), 200
 
