@@ -98,7 +98,7 @@ def add_user():
 @app.route('/accounts')
 def get_accounts():
     accounts = db.session.query(Account).all()
-    return jsonify({"data": str(accounts)}), 200
+    return jsonify({"data": [str(a) for a in accounts]}), 200
 
 @app.route('/init')
 def init():
