@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 import os
+import json
+import random
+import string
 
 from flask import Flask, render_template, jsonify, request, url_for, redirect
-import json
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, exc, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import func
 from redis import Redis
-
 
 # Global Config
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -45,7 +46,17 @@ class Account(db.Model):
     def __repr__(self):
         return f'<Account {self.firstname}>'
 
+# Functions
+def generate_string(length):
+    import random
+    import string
+    result = ''.join(random.choice(string.ascii_letters) for i in range(length))
+    return result
 
+def generate_number(minimum=1, maximum=100):
+    return random.randint(minimum, maximum)
+
+# Routes
 @app.route("/")
 @app.route("/hello")
 def index():
@@ -72,12 +83,16 @@ def hello():
 
 @app.route('/add')
 def add_user():
-    johndoe = Account(firstname='john', lastname='doe',
-                       email='jd@example.com', age=79,
-                       bio='Simple user')
-    db.session.add(johndoe)
+    firstname = generate_string(5)
+    lastname = generate_string(8)
+    new_account = Account(firstname=firstname,
+                      lastname=lastname,
+                      email=f'{firstname}.{lastname}@example.com',
+                      age=79,
+                      bio='Random user')
+    db.session.add(new_account)
     db.session.commit()
-    return jsonify({"data": str(johndoe.id)}), 200
+    return jsonify({"data": str(new_account.id)}), 200
 
 @app.route('/init')
 def init():
