@@ -75,6 +75,8 @@ def add_user():
     johndoe = Account(firstname='john', lastname='doe',
                        email='jd@example.com', age=79,
                        bio='Simple user')
+    db.session.add(johndoe)
+    db.session.commit()
     return jsonify({"data": str(johndoe.id)}), 200
 
 @app.route('/init')
