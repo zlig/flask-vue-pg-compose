@@ -88,7 +88,7 @@ def add_user():
     new_account = Account(firstname=firstname,
                       lastname=lastname,
                       email=f'{firstname}.{lastname}@example.com',
-                      age=79,
+                      age=generate_number(18, 112),
                       bio='Random user')
     db.session.add(new_account)
     db.session.commit()
