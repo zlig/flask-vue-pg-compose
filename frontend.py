@@ -115,7 +115,7 @@ def init():
     try:
        db.drop_all()
        output += "All tables dropped. "
-    except OperationalError:
+    except Exception:
        pass
     db.create_all()
     output += "All tables created."
