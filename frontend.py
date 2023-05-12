@@ -83,8 +83,8 @@ def hello():
 
 @app.route('/add')
 def add_user():
-    firstname = generate_string(5)
-    lastname = generate_string(8)
+    firstname = generate_string(generate_number(4, 8))
+    lastname = generate_string(generate_number(4, 9))
     new_account = Account(firstname=firstname,
                       lastname=lastname,
                       email=f'{firstname}.{lastname}@example.com',
