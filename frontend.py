@@ -79,18 +79,21 @@ def add_user():
 
 @app.route('/init')
 def init():
+    output = ""
     # Initialise database
     from sqlalchemy_utils import database_exists, create_database
     engine = create_engine(db_uri)
     if not database_exists(engine.url):
-        print("Database does not exist, creating")
         create_database(engine.url)
+        output += "Database does not exist, creating. "
     try:
        db.drop_all()
+       output += "All tables dropped. "
     except OperationalError:
        pass
     db.create_all()
-    return jsonify({"data": "All tables created."}), 200
+    output += "All tables created."
+    return jsonify({"data": output.strip()}), 200
 
 @app.errorhandler(404)
 def page_not_found(e):
