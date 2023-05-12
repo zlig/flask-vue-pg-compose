@@ -44,7 +44,10 @@ class Account(db.Model):
     bio = db.Column(db.Text)
 
     def __repr__(self):
-        return f'<Account {self.firstname}>'
+        return f'<Account {self.firstname} {self.lastname} {self.email}>'
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 # Functions
 def generate_string(length):
@@ -98,7 +101,7 @@ def add_user():
 @app.route('/accounts')
 def get_accounts():
     accounts = db.session.query(Account).all()
-    return jsonify({"data": [str(a) for a in accounts]}), 200
+    return jsonify({"data": [a.as_dict() for a in accounts]}), 200
 
 @app.route('/init')
 def init():
