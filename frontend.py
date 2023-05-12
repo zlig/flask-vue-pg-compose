@@ -86,10 +86,10 @@ def add_user():
     firstname = generate_string(generate_number(4, 8))
     lastname = generate_string(generate_number(4, 9))
     new_account = Account(firstname=firstname,
-                      lastname=lastname,
-                      email=f'{firstname}.{lastname}@example.com',
-                      age=generate_number(18, 112),
-                      bio='Random user')
+                          lastname=lastname,
+                          email=f'{firstname}.{lastname}@example.com',
+                          age=generate_number(18, 112),
+                          bio='Random user')
     db.session.add(new_account)
     db.session.commit()
     return jsonify({"data": str(new_account.id)}), 200
