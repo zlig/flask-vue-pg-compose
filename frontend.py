@@ -98,7 +98,7 @@ def add_user():
     return jsonify({"data": str(new_account.id)}), 200
 
 
-@app.route('/accounts')
+@app.route('/accounts', methods=['GET'])
 def get_accounts():
     accounts = db.session.query(Account).all()
     return jsonify({"data": [a.as_dict() for a in accounts]}), 200
