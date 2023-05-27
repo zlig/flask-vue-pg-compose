@@ -85,3 +85,30 @@ services:
     depends_on:
       - db
 
+  backend:
+    container_name: info-backend
+    image: docker.io/library/alpine:latest
+    user: ${DOCKER_USER:-root}
+    environment:
+      - TZ=Europe/Dublin
+      - POSTGRES_USER=${INFO_DB_USERNAME:-admin}
+      - POSTGRES_PASSWORD=${INFO_DB_PASSWORD:-Secret432}
+      - POSTGRES_DB=${INFO_DB_NAME:-info}
+    build:
+      dockerfile: Dockerfile
+      context: worker
+      network: host
+    init: true
+    ports:
+      - "8082:8082"
+    networks:
+      - db
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 50M
+    depends_on:
+      - redis
+
