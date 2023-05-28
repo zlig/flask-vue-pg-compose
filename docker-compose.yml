@@ -17,6 +17,7 @@ services:
   db:
     container_name: info-db
     image: postgres:14.1-alpine
+    platform: linux/amd64
     restart: unless-stopped
     environment:
       - TZ=Europe/Dublin
@@ -46,6 +47,7 @@ services:
   redis:
     container_name: info-redis
     image: docker.io/library/redis:latest
+    platform: linux/amd64
     user: nobody
     ports:
       - "6379:6379"
@@ -60,6 +62,7 @@ services:
   frontend:
     container_name: info-frontend
     image: docker.io/library/alpine:latest
+    platform: linux/amd64
     user: ${DOCKER_USER:-root}
     environment:
       - TZ=Europe/Dublin
@@ -87,7 +90,8 @@ services:
 
   backend:
     container_name: info-backend
-    image: docker.io/library/alpine:latest
+    image: zlig/worker:latest
+    platform: linux/amd64
     user: ${DOCKER_USER:-root}
     environment:
       - TZ=Europe/Dublin
