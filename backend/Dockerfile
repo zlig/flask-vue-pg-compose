@@ -3,7 +3,7 @@ FROM python:3.11-alpine
 # Essentials
 RUN apk update && \
     apk --no-cache add \
-        gcc musl-dev linux-headers python3-dev \
+        gcc musl-dev linux-headers python3-dev libffi-dev \
         postgresql-dev musl-dev \
         bash \
         bash-completion \
@@ -30,10 +30,13 @@ RUN az aks install-cli \
     && kubelogin --version
 
 # Install helm (v3)
-ENV HELM_VERSION=3.8.0
-RUN (curl -L https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -zxv --strip-components 1 -C /usr/local/bin linux-amd64/helm) \
-    && helm version \
-    && helm plugin install https://github.com/chartmuseum/helm-push
+ENV HELM_VERSION=3.8.2
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
+    chmod 700 get_helm.sh && \
+    DESIRED_VERSION=$HELM_VERSION ./get_helm.sh && \
+    helm version && \
+    rm -f get_helm.sh && \
+    helm plugin install https://github.com/chartmuseum/helm-push
 
 # Install jq/yq
 ENV JQ_VERSION=1.6
