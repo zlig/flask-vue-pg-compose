@@ -70,9 +70,8 @@ services:
       - POSTGRES_PASSWORD=${INFO_DB_PASSWORD:-Secret432}
       - POSTGRES_DB=${INFO_DB_NAME:-info}
     build:
-      dockerfile: frontend.Dockerfile
-      context: .
-      #target: build-static
+      dockerfile: Dockerfile
+      context: frontend
       network: host
     init: true
     ports:
@@ -100,7 +99,7 @@ services:
       - POSTGRES_DB=${INFO_DB_NAME:-info}
     build:
       dockerfile: Dockerfile
-      context: worker
+      context: backend
       network: host
     init: true
     ports:
