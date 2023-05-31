@@ -104,6 +104,8 @@ services:
     init: true
     ports:
       - "8082:8082"
+    profiles:
+      - backend
     networks:
       - db
       - backend
