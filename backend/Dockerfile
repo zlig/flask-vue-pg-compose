@@ -30,10 +30,10 @@ RUN az aks install-cli \
     && kubelogin --version
 
 # Install helm (v3)
-ENV HELM_VERSION=3.8.2
+#ENV DESIRED_VERSION=3.8.2
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
     chmod 700 get_helm.sh && \
-    DESIRED_VERSION=$HELM_VERSION ./get_helm.sh && \
+    ./get_helm.sh && \
     helm version && \
     rm -f get_helm.sh && \
     helm plugin install https://github.com/chartmuseum/helm-push
