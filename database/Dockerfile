@@ -1,4 +1,4 @@
-FROM postgres:latest
+FROM postgres:14.1-alpine
 
 COPY scripts /scripts
 COPY script.sh /usr/local/bin/
