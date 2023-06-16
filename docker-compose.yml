@@ -26,6 +26,10 @@ services:
       - POSTGRES_PASSWORD=${INFO_DB_PASSWORD:-Secret432}
       - POSTGRES_DB=${INFO_DB_NAME:-info_db}
       - PGDATA=/data/postgres
+    build:
+      dockerfile: Dockerfile
+      context: database
+      network: host
     ports:
       - '5432:5432'
     networks:
