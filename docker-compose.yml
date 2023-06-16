@@ -16,7 +16,8 @@ services:
 
   database:
     container_name: info-db
-    image: postgres:14.1-alpine
+    #image: postgres:14.1-alpine
+    image: zlig/database:latest
     platform: ${DOCKER_PLATFORM:-linux/amd64}
     restart: unless-stopped
     environment:
