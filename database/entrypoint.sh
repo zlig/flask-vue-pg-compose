@@ -19,7 +19,7 @@ fi
 
 # Loop through the SQL scripts and apply them if they are newer than the current version
 for SCRIPT in $(ls /scripts/*.sql); do
-  SCRIPT_NAME=$(basename $SCRIPT .sql)
+  SCRIPT_NAME=$(basename $SCRIPT)
   SCRIPT_VERSION=$(echo $SCRIPT_NAME | cut -d'_' -f1)
 
   if [ $SCRIPT_VERSION -gt $CURRENT_VERSION ]; then
