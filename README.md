@@ -127,4 +127,6 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 - https://github.com/quay/quay
 - https://www.digitalocean.com/community/tutorials/how-to-use-a-postgresql-database-in-a-flask-application
 - https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application
+- https://github.com/microsoft/api-guidelines
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
