@@ -49,21 +49,6 @@ services:
       retries: 3
       start_period: 60s
 
-  redis:
-    container_name: info-redis
-    image: docker.io/library/redis:latest
-    platform: ${DOCKER_PLATFORM:-linux/amd64}
-    user: nobody
-    ports:
-      - "6379:6379"
-    networks:
-      - backend
-    deploy:
-      resources:
-        limits:
-          cpus: '0.2'
-          memory: 50M
-
   frontend:
     container_name: info-frontend
     image: zlig/frontend:latest
@@ -122,3 +107,17 @@ services:
     depends_on:
       - redis
 
+  redis:
+    container_name: info-redis
+    image: docker.io/library/redis:latest
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+    user: nobody
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 50M
