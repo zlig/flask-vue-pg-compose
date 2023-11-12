@@ -2,7 +2,6 @@
 
 Build a Python Flask web application combined with Vue.js and a PostgreSQL database in a Docker Compose file for local development
 
-
 ## Usage
 
 ### Prerequisites
@@ -10,11 +9,13 @@ Build a Python Flask web application combined with Vue.js and a PostgreSQL datab
 On recent versions of Docker, Docker Compose is included, which can create a conflict with the following commands based on `docker-compose`.
 
 A simple workaround to allow running the commands documented below is to add an alias to the .bashrc or .zshrc configuration of the current workstation or server:
+
 ```bash
 alias docker-compose='docker compose'
 ```
 
 An alternative and more complex solution is to create a script that respect the legacy container naming convention (allowing a `_`):
+
 ```bash
 sudo cat <<EOF >> /usr/bin/docker-compose
 #!/bin/bash
@@ -25,6 +26,7 @@ sudo chmod +x /usr/bin/docker-compose
 ```
 
 Additionally, on a Linux workstation, executes the following commands to add the current user to the docker group to allow running it without `sudo`:
+
 ```bash
 # Creates docker group (it should already exist)
 sudo groupadd docker
@@ -117,16 +119,15 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 
 ## Resources
 
-- https://github.com/mdn/developer-portal/blob/master/docker-compose.yml
-- https://medium.com/freestoneinfotech/simplifying-docker-compose-operations-using-makefile-26d451456d63
-- https://pythonspeed.com/articles/activate-virtualenv-dockerfile/
-- https://runnable.com/docker/python/docker-compose-with-flask-apps
-- https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
-- https://www.digitalocean.com/community/tutorials/how-to-use-templates-in-a-flask-application#
-- https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
-- https://github.com/quay/quay
-- https://www.digitalocean.com/community/tutorials/how-to-use-a-postgresql-database-in-a-flask-application
-- https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application
-- https://github.com/microsoft/api-guidelines
-- https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-
+* <https://github.com/mdn/developer-portal/blob/master/docker-compose.yml>
+* <https://medium.com/freestoneinfotech/simplifying-docker-compose-operations-using-makefile-26d451456d63>
+* <https://pythonspeed.com/articles/activate-virtualenv-dockerfile/>
+* <https://runnable.com/docker/python/docker-compose-with-flask-apps>
+* <https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/>
+* <https://www.digitalocean.com/community/tutorials/how-to-use-templates-in-a-flask-application#>
+* <https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/>
+* <https://github.com/quay/quay>
+* <https://www.digitalocean.com/community/tutorials/how-to-use-a-postgresql-database-in-a-flask-application>
+* <https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application>
+* <https://github.com/microsoft/api-guidelines>
+* <https://developer.mozilla.org/en-US/docs/Web/HTTP/Status>
