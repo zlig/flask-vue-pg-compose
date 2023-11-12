@@ -10,12 +10,12 @@ Build a Python Flask web application combined with Vue.js and a PostgreSQL datab
 On recent versions of Docker, Docker Compose is included, which can create a conflict with the following commands based on `docker-compose`.
 
 A simple workaround to allow running the commands documented below is to add an alias to the .bashrc or .zshrc configuration of the current workstation or server:
-```
+```bash
 alias docker-compose='docker compose'
 ```
 
 An alternative and more complex solution is to create a script that respect the legacy container naming convention (allowing a `_`):
-```
+```bash
 sudo cat <<EOF >> /usr/bin/docker-compose
 #!/bin/bash
 docker compose --compatibility "$@"
@@ -25,7 +25,7 @@ sudo chmod +x /usr/bin/docker-compose
 ```
 
 Additionally, on a Linux workstation, executes the following commands to add the current user to the docker group to allow running it without `sudo`:
-```
+```bash
 # Creates docker group (it should already exist)
 sudo groupadd docker
 
@@ -89,7 +89,7 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 
 * Executes commands in the PostgreSQL container:
 
-```
+```bash
 -- Show connection info
 \conninfo
 
