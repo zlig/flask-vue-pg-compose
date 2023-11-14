@@ -56,7 +56,6 @@ The containers can be run as background tasks with the following command:
 
 `docker-compose up -d`
 
-
 To start the containers only in the current terminal and see the logs live, run this command instead:
 
 `docker-compose up --remove-orphans`
