@@ -1,6 +1,9 @@
 # Ignore .env containing potentially confidential credentials
 .env
 
+# Ignore local to-do list
+TODO.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
