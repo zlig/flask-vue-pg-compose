@@ -47,6 +47,8 @@ set +x
 # Start the PostGreSQL server
 exec /usr/local/bin/docker-entrypoint.sh "$@"
 
+# DEBUG
+ls -l 
 
 # Define variables
 SCHEMA_VERSION_TABLE="schema_version"
@@ -54,6 +56,10 @@ SCRIPTS_DIR="/scripts"
 # DATABASE_NAME="mydatabase"
 # POSTGRES_USER="myuser"                 
 # DATABASE_PASSWORD="mypassword"
+
+# DEBUG
+ls -lRt $SCRIPTS_DIR
+
 
 # Check if schema version table exists
 if ! psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "\d $SCHEMA_VERSION_TABLE" >/dev/null 2>&1; then
