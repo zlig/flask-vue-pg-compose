@@ -80,3 +80,6 @@ for script in $(ls $SCRIPTS_DIR/*.sql | sort -V); do
     psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "UPDATE $SCHEMA_VERSION_TABLE SET version=$VERSION"
   fi
 done
+
+# Bring back entrypoint in foreground
+fg %1
