@@ -34,7 +34,7 @@ services:
     networks:
       - database
     volumes:
-      - "./database/sql/create_tables.sql:/data/sql/create_tables.sql"
+      # - "./database/sql/create_tables.sql:/data/sql/create_tables.sql"
       - db-volume:/data/postgres
     deploy:
       resources:
