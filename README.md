@@ -116,6 +116,19 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 \q
 ```
 
+### Check schema version
+
+Execute the following commands to check the current database schema version of the running database:
+
+```bash
+# Export variables
+SCHEMA_VERSION_TABLE="version"
+SCRIPTS_DIR="/docker-entrypoint-initdb.d"
+
+# Retrieve database schema version
+psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -t -c "SELECT version FROM $SCHEMA_VERSION_TABLE"
+```
+
 ## Perform a clean restart
 
 To be perform a clean restart of the development environment, execute the following commands:
