@@ -9,5 +9,5 @@ CREATE TABLE content (
         last_update DATE
 );
 
--- Set database schema version
-INSERT INTO version(version) VALUES ('2');
+-- Update database schema version
+UPDATE version SET version=2;
