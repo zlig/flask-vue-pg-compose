@@ -1,6 +1,5 @@
--- Dropping tables
+-- Dropping table
 DROP TABLE IF EXISTS content;
-DROP TABLE IF EXISTS version;
 
 -- Creation of version table
 CREATE TABLE content (
@@ -9,9 +8,3 @@ CREATE TABLE content (
 	description VARCHAR (255),
         last_update DATE
 );
-
--- Creation of version table
-CREATE TABLE IF NOT EXISTS version (
-  version SMALLINT DEFAULT 0 NOT NULL
-);
-INSERT INTO version(version) VALUES ('1');
