@@ -17,6 +17,7 @@ SCRIPTS_DIR="/docker-entrypoint-initdb.d"
 
 
 # Versions the database schema (if it exists)
+echo
 echo "Versioning database schema.."
 
 # look specifically for PG_VERSION, as it is expected in the DB dir
@@ -37,7 +38,7 @@ if [ ! -z "$DATABASE_ALREADY_EXISTS" ]; then
   su -l $POSTGRES_USER -c "pg_ctl start -s -l /dev/null -D $PGDATA"
 
   # Get current schema version
-  CURRENT_VERSION=$(psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -t -c "SELECT version FROM $SCHEMA_VERSION_TABLE")
+  CURRENT_VERSION=$(psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -t -c "SELECT version FROM $SCHEMA_VERSION_TABLE" | xargs)
 
   # Apply SQL scripts
   for script in $(ls $SCRIPTS_DIR/*.sql | sort -V); do
@@ -50,9 +51,6 @@ if [ ! -z "$DATABASE_ALREADY_EXISTS" ]; then
     if [ $SCRIPT_VERSION -gt $CURRENT_VERSION ]; then
       echo "Applying script $script"
       docker_process_init_files $script
-
-      # Update schema version
-      psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "UPDATE $SCHEMA_VERSION_TABLE SET version=$SCRIPT_VERSION"
     fi
   done
 
@@ -62,11 +60,19 @@ if [ ! -z "$DATABASE_ALREADY_EXISTS" ]; then
   set -x
 
   # Process completed
+  echo
   echo 'PostgreSQL schema update process completed; ready for start up.'
+
+else
+
+  # New database
+  echo
+  echo 'PostgreSQL schema update not required on a new database.'
 
 fi
 
 
 # Start the PostGreSQL server
+echo
 echo "Starting postgres.."
 exec /usr/local/bin/docker-entrypoint.sh "$@"
