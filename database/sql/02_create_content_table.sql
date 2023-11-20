@@ -8,3 +8,6 @@ CREATE TABLE content (
 	description VARCHAR (255),
         last_update DATE
 );
+
+-- Set database schema version
+INSERT INTO version(version) VALUES ('2');
