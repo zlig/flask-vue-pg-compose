@@ -31,6 +31,7 @@ if [ ! -z "$DATABASE_ALREADY_EXISTS" ]; then
   # Reuse PostgreSQL script as library of functions
   source /usr/local/bin/docker-entrypoint.sh
   docker_setup_env
+  set +x
 
   # Temporarily start PostgreSQL server
   su -l $POSTGRES_USER -c "pg_ctl start -s -l /dev/null -D $PGDATA"
@@ -58,6 +59,7 @@ if [ ! -z "$DATABASE_ALREADY_EXISTS" ]; then
   # Stop temporary instance of PostgreSQL server
   su -l $POSTGRES_USER -c "pg_ctl stop -s -l /dev/null -D $PGDATA"
   unset DATABASE_ALREADY_EXISTS
+  set -x
 
   # Process completed
   echo 'PostgreSQL schema update process completed; ready for start up.'
