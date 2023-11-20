@@ -116,6 +116,24 @@ In general, the prompt for a terminal session can be opened on a pod with the fo
 \q
 ```
 
+## Perform a clean restart
+
+To be perform a clean restart of the development environment, execute the following commands:
+
+```bash
+# Stop the container(s) and network(s)
+docker-compose down
+
+# Delete all containers
+docker rm -f $(docker ps -a -q)
+
+# Delete all volumes
+docker volume rm $(docker volume ls -q)
+
+# Restart the containers
+docker-compose up -d
+```
+
 ## Resources
 
 * <https://github.com/mdn/developer-portal/blob/master/docker-compose.yml>
