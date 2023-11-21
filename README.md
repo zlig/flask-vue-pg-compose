@@ -140,7 +140,7 @@ docker-compose down
 # Delete all containers
 docker rm -f $(docker ps -a -q)
 
-# Delete all volumes
+# Delete all volumes from all containers on the local machine (DO NOT RUN IN PRODUCTION)
 docker volume rm $(docker volume ls -q)
 
 # Restart the containers
