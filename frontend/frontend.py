@@ -10,6 +10,7 @@ from sqlalchemy import create_engine, exc, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import func
+
 from redis import Redis
 
 # Global Config
