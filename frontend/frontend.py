@@ -143,30 +143,6 @@ def authenticated(func):
             return jsonify({"data": {}, "error": "Authentication required.", "authenticated": False}), 401
     return wrapper
 
-
-@app.route("/")
-def index():
-    global config_file
-    try:
-        ganalytics_id = ''
-        if os.path.isfile(config_file):
-            settings = {'firstSetup': False}
-            config = ConfigParser.ConfigParser()
-            config.readfp(open(config_file))
-            if 'ganalytics' in config.sections():
-                ganalytics_id = config.get('ganalytics', 'ua_id')
-        else:
-            settings = {'firstSetup': True}
-            # Bypass authentication during first setup
-            session.clear()
-            session['admin_user'] = True
-
-        return render_template('index.html', settings=settings, ga_ua_id=ganalytics_id)
-    except Exception as e:
-        logger.error('Error serving web application: %s' % e)
-        return jsonify({'data': {}, 'error': 'Could serve web application, check logs for more details..'}), 500
-
-
 @app.route("/api/", strict_slashes=False)
 def status():
     try:
