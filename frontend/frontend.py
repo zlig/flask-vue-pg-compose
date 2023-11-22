@@ -132,6 +132,134 @@ def page_not_found(e):
     return jsonify({"data": "not found", "error": "resource not found"}), 404
 
 
+# Authentication
+def authenticated(func):
+    """Checks whether user is logged in or raises error 401."""
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if session.get('admin_user', False):
+            return func(*args, **kwargs)
+        else:
+            return jsonify({"data": {}, "error": "Authentication required.", "authenticated": False}), 401
+    return wrapper
+
+
+@app.route("/")
+def index():
+    global config_file
+    try:
+        ganalytics_id = ''
+        if os.path.isfile(config_file):
+            settings = {'firstSetup': False}
+            config = ConfigParser.ConfigParser()
+            config.readfp(open(config_file))
+            if 'ganalytics' in config.sections():
+                ganalytics_id = config.get('ganalytics', 'ua_id')
+        else:
+            settings = {'firstSetup': True}
+            # Bypass authentication during first setup
+            session.clear()
+            session['admin_user'] = True
+
+        return render_template('index.html', settings=settings, ga_ua_id=ganalytics_id)
+    except Exception as e:
+        logger.error('Error serving web application: %s' % e)
+        return jsonify({'data': {}, 'error': 'Could serve web application, check logs for more details..'}), 500
+
+
+@app.route("/api/", strict_slashes=False)
+def status():
+    try:
+        datasets = []
+        time_labels = []
+        xaxis_labels = []
+
+        offset = 1  # GMT+1 as Default Timezone offset
+        if request.headers.get('offset'):
+            offset = int(request.headers.get('offset'))
+        logger.debug("Timezone offset: %s" % offset)
+
+        return jsonify({'labels': xaxis_labels,
+                        'datasets': datasets,
+                        'time_labels': time_labels}), 200
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        del exc_type
+        del exc_obj
+        logger.error('Error retrieving status (line %d): %s' % (exc_tb.tb_lineno, e))
+        return jsonify({'data': {}, 'error': 'Could not retrieve status, check logs for more details..'}), 500
+
+
+@app.route("/setup/password/", methods=['POST'], strict_slashes=False)
+@authenticated
+def set_password():
+    if request.method == 'POST':
+        data = ast.literal_eval(request.data)
+        if 'password' in data:
+            password = sanitize_user_input(data['password'])
+            if store_password(password):
+                return jsonify({"data": {"response": "Success!"}}), 200
+            else:
+                return jsonify({"data": {}, "error": "Could not set password"}), 500
+        else:
+            return jsonify({"data": {}, "error": "Password needs to be specified"}), 500
+    else:
+        return jsonify({"data": {}, "error": "Incorrect request method"}), 500
+
+@app.route("/auth/login/", methods=['POST'], strict_slashes=False)
+def login():
+    global config_file
+    if request.method == 'POST':
+        data = ast.literal_eval(request.data)
+        if 'password' in data and os.path.isfile(config_file):
+            config = ConfigParser.ConfigParser()
+            config.readfp(open(config_file))
+            if 'admin' in config.sections():
+                current_password = config.get('admin', 'password')
+                password = sanitize_user_input(data['password'])
+                if obfuscate(password) == current_password:
+                    session.clear()
+                    session['admin_user'] = True
+                    return jsonify({"data": {"response": "Login success!", "authenticated": True}}), 200
+                else:
+                    return jsonify({"data": {}, "error": "Unauthorised, authentication failure.."}), 401
+            else:
+                return jsonify({'data': {}, 'error': 'Could not retrieve current credentials..'}), 500
+        else:
+            return jsonify({"data": {}, "error": "Password needs to be specified"}), 500
+    else:
+        return jsonify({"data": {}, "error": "Incorrect request method"}), 500
+
+
+@app.route("/auth/logout/", methods=['GET', 'POST'], strict_slashes=False)
+@authenticated
+def logout():
+    try:
+        session.clear()
+        return jsonify({"data": {"response": "Logged out successfully!"}}), 200
+    except Exception as e:
+        logger.error('Error while logging out: %s' % e)
+        return jsonify({'data': {}, 'error': 'Exception encountered while logging out..'}), 500
+
+
+def store_password(password):
+    global config_file
+    try:
+        config = ConfigParser.ConfigParser()
+        if os.path.isfile(config_file):
+            config.readfp(open(config_file))
+            if 'admin' in config.sections():
+                config.remove_section('admin')
+        config.add_section('admin')
+        config.set('admin', 'password', obfuscate(password))
+
+        with open(config_file, 'w') as outfile:
+            config.write(outfile)
+
+        return True
+    except Exception:
+        return False
+
 # Main
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8081, use_reloader=False, debug=True)
