@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Frontend service
+#
 import os
 import json
 import random
