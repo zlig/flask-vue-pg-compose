@@ -20,7 +20,7 @@ import logging
 from locust import HttpUser, task
 from locust import events
 
-class HelloWorldUser(HttpUser):
+class FrontEndApi(HttpUser):
     @task
     def test_hi(self):
         self.client.get("/hi")
