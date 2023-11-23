@@ -99,10 +99,10 @@ def add_user():
                           lastname=lastname,
                           email=f'{firstname}.{lastname}@example.com',
                           age=generate_number(18, 112),
-                          bio='Random user')
+                          biography='Random user')
     db.session.add(new_account)
     db.session.commit()
-    return jsonify({"data": str(new_account.id)}), 200
+    return jsonify({"data": str(new_account.account_id)}), 200
 
 
 @app.route('/accounts', methods=['GET'])
