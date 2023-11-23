@@ -10,8 +10,8 @@
 #   locust --modern-ui --host=http://0.0.0.0:8081 -f frontend-api-tests.py
 #   firefox http://0.0.0.0:8089/
 #
-#   (headless without Web UI)
-#   locust --headless --users 10 --spawn-rate 1 --host=http://0.0.0.0:8081 -f frontend-api-tests.py
+#   (headless without Web UI for 30s)
+#   locust --headless --users 3 --spawn-rate 1 --run-time=30s --host=http://0.0.0.0:8081 -f frontend-api-tests.py
 #
 #   (headless without UI and HTML report output)
 #   locust --headless --users 10 --spawn-rate 1 --host=http://0.0.0.0:8081 -f frontend-api-tests.py --html tests-results.html
