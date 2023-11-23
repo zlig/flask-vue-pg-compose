@@ -135,7 +135,7 @@ To be perform a clean restart of the development environment, execute the follow
 
 ```bash
 # Stop the container(s) and network(s)
-docker-compose down
+docker-compose stop
 
 # Delete all containers
 docker rm -f $(docker ps -a -q)
