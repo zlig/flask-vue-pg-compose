@@ -6,7 +6,8 @@ CREATE TABLE article (
 	article_id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
 	description VARCHAR (255),
-    last_update DATE
+    last_update DATE,
+	FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
 
 -- Update database schema version
