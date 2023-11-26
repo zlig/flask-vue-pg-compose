@@ -61,6 +61,7 @@ class Article(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     last_update = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    account_id = db.Column(db.Integer, db.ForeignKey('Account.account_id'))
 
     def __repr__(self):
         return f'<Article {self.name} {self.description}>'
