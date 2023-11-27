@@ -7,6 +7,7 @@ CREATE TABLE article (
 	name VARCHAR(255) NOT NULL,
 	description VARCHAR (255),
     last_update DATE,
+	account_id SERIAL,
 	FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
 
