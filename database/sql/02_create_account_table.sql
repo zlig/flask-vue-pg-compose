@@ -13,8 +13,8 @@ CREATE TABLE account (
 	email VARCHAR(80) NOT NULL,
 	biography TEXT,
     age SMALLINT NOT NULL,
-    created_at DATE,
-    last_updated DATE
+    created_at TIMESTAMPTZ DEFAULT Now(),
+    last_updated TIMESTAMPTZ DEFAULT Now()
 );
 
 -- Update database schema version
