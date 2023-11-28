@@ -104,8 +104,18 @@ def hello():
     print('Redis views: %d' % views, flush=True)
     return jsonify({"data": str(views)}), 200
 
-@app.route('/add')
-def add_user():
+@app.route('/accounts', methods=['GET'])
+def get_accounts():
+    accounts = db.session.query(Account).all()
+    return jsonify({"data": [a.as_dict() for a in accounts]}), 200
+
+@app.route('/accounts/<int:id>')
+def get_account():
+    id = request.args.getlist('id', type=int)
+    return jsonify({"data": f'Details for account {id}'}), 200
+
+@app.route('/tests/data/account/')
+def add_account():
     firstname = generate_string(generate_number(4, 8))
     lastname = generate_string(generate_number(4, 9))
     new_account = Account(firstname=firstname,
@@ -116,17 +126,6 @@ def add_user():
     db.session.add(new_account)
     db.session.commit()
     return jsonify({"data": str(new_account.account_id)}), 200
-
-
-@app.route('/accounts', methods=['GET'])
-def get_accounts():
-    accounts = db.session.query(Account).all()
-    return jsonify({"data": [a.as_dict() for a in accounts]}), 200
-
-@app.route('/accounts/<int:id>')
-def get_account():
-    id = request.args.getlist('id', type=int)
-    return jsonify({"data": f'Details for account {id}'}), 200
 
 @app.route('/init')
 def init():
