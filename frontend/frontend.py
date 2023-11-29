@@ -127,6 +127,7 @@ def add_account():
     db.session.commit()
     return jsonify({"data": str(new_account.account_id)}), 200
 
+
 @app.route('/init')
 def init():
     output = ""
