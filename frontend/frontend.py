@@ -110,7 +110,7 @@ def get_accounts():
     return jsonify({"data": [a.as_dict() for a in accounts]}), 200
 
 @app.route('/accounts/<int:id>')
-def get_account():
+def get_account(id):
     id = request.args.getlist('id', type=int)
     return jsonify({"data": f'Details for account {id}'}), 200
 
