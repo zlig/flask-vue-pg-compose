@@ -111,8 +111,8 @@ def get_accounts():
 
 @app.route('/accounts/<int:id>')
 def get_account(id):
-    id = request.args.getlist('id', type=int)
-    return jsonify({"data": f'Details for account {id}'}), 200
+    account = db.session.query(Account).get(id)
+    return jsonify({"data": [account.as_dict()]}), 200
 
 @app.route('/tests/data/accounts/')
 def add_account():
