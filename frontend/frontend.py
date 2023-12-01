@@ -112,7 +112,20 @@ def get_accounts():
 @app.route('/accounts/<int:id>')
 def get_account(id):
     account = db.session.query(Account).get(id)
-    return jsonify({"data": [account.as_dict()]}), 200
+    return jsonify({"data": [account.as_dict()]}), 200  # TODO what to retunr if not found?
+
+@app.route('/accounts', methods=["POST"])
+def add_guide():
+    firstname = request.json['firstname']
+    lastname = request.json['lastname']
+    email = request.json['email']
+    age = request.json['age']
+    biography = request.json['biography']
+
+    new_account = Account(firstname, lastname, email, age, biography)
+
+    db.session.add(new_account)
+    db.session.commit()
 
 @app.route('/tests/data/accounts/')
 def add_account():
