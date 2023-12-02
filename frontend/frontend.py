@@ -125,7 +125,7 @@ def add_guide():
     new_account = Account(firstname, lastname, email, age, biography)
 
     db.session.add(new_account)
-    db.session.commit()
+    db.session.commit() # TODO test
 
 @app.route('/tests/data/accounts/')
 def add_account():
