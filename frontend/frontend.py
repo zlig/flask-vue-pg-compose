@@ -128,7 +128,7 @@ def add_account():
         db.session.add(new_account)
         db.session.commit()
 
-        return jsonify({"response": "inserted"}), 200
+        return jsonify({"response": "inserted account %d" % new_account.account_id}), 200
     except Exception as e:
         return jsonify({"data": {}, "error": "insertion failed"}), 500
 
