@@ -122,15 +122,29 @@ def add_account():
         email = request.json['email']
         age = request.json['age']
         biography = request.json['biography']
-
         new_account = Account(firstname=firstname, lastname=lastname, email=email, age=age, biography=biography)
 
         db.session.add(new_account)
         db.session.commit()
 
         return jsonify({"response": "inserted account %d" % new_account.account_id}), 200
+
     except Exception as e:
         return jsonify({"data": {}, "error": "insertion failed"}), 500
+
+@app.route('/accounts', methods=["DELETE"])
+def delete_account():
+    try:
+        account_id = request.json['account_id']
+
+        Account.query.filter(Account.account_id == account_id).delete()
+
+        db.session.commit()
+
+        return jsonify({"response": "deleted account %d" % account_id}), 200
+
+    except Exception as e:
+        return jsonify({"data": {}, "error": "deletion failed"}), 500
 
 @app.route('/tests/data/accounts/')
 def add_tests_data_accounts():
