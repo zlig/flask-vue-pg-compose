@@ -115,20 +115,25 @@ def get_account(id):
     return jsonify({"data": [account.as_dict()]}), 200  # TODO what to retunr if not found?
 
 @app.route('/accounts', methods=["POST"])
-def add_guide():
-    firstname = request.json['firstname']
-    lastname = request.json['lastname']
-    email = request.json['email']
-    age = request.json['age']
-    biography = request.json['biography']
+def add_account():
+    try:
+        firstname = request.json['firstname']
+        lastname = request.json['lastname']
+        email = request.json['email']
+        age = request.json['age']
+        biography = request.json['biography']
 
-    new_account = Account(firstname, lastname, email, age, biography)
+        new_account = Account(firstname=firstname, lastname=lastname, email=email, age=age, biography=biography)
 
-    db.session.add(new_account)
-    db.session.commit() # TODO test
+        db.session.add(new_account)
+        db.session.commit()
+
+        return jsonify({"response": "inserted"}), 200
+    except Exception as e:
+        return jsonify({"data": {}, "error": "insertion failed"}), 500
 
 @app.route('/tests/data/accounts/')
-def add_account():
+def add_tests_data_accounts():
     firstname = generate_string(generate_number(4, 8))
     lastname = generate_string(generate_number(4, 9))
     new_account = Account(firstname=firstname,
