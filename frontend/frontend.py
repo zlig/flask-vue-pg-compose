@@ -112,7 +112,10 @@ def get_accounts():
 @app.route('/accounts/<int:id>')
 def get_account(id):
     account = db.session.query(Account).get(id)
-    return jsonify({"data": [account.as_dict()]}), 200  # TODO what to retunr if not found?
+    if account:
+        return jsonify({"data": [account.as_dict()]}), 200
+    else:
+        return jsonify({"data": []}), 204
 
 @app.route('/accounts', methods=["POST"])
 def add_account():
