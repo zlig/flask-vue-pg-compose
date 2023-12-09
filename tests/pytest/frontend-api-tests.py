@@ -3,6 +3,7 @@
 #   pytest -s file.py
 
 import requests
+import pytest
 
 host = 'http://127.0.0.1:8081'
 
@@ -13,10 +14,6 @@ host = 'http://127.0.0.1:8081'
 #     print(response.json())
 # else:
 #     print('Error: {0}'.format(response.status_code)) 
-
-
-import requests
-import pytest
 
 
 def test_1_get():
