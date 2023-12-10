@@ -24,7 +24,7 @@ def test_1_get():
     print("RESPONSE:", res.text)
     assert res.status_code == 200
 
-def test_2_put():
+def test_2_post():
     url = host+"/accounts"
     data = {"name":"string"}
     res = requests.post(url, json=data)
