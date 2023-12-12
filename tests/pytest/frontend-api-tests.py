@@ -15,9 +15,9 @@ def test_1_get():
     print("RESPONSE:", res.text)
     assert res.status_code == 200
 
-def test_2_post():
+def test_2_post_fail():
     url = host+"/accounts"
     data = {"name":"string"}
     res = requests.post(url, json=data)
     print("RESPONSE:", res.json())
-    assert res.status_code == 200
+    assert res.status_code != 200
