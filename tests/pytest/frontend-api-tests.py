@@ -21,3 +21,10 @@ def test_2_post_fail():
     res = requests.post(url, json=data)
     print("RESPONSE:", res.json())
     assert res.status_code != 200
+
+def test_3_post_success():
+    url = host+"/accounts"
+    data = {"name":"string"}
+    res = requests.post(url, json=data)
+    print("RESPONSE:", res.json())
+    assert res.status_code == 200
