@@ -24,7 +24,13 @@ def test_2_post_fail():
 
 def test_3_post_success():
     url = host+"/accounts"
-    data = {"name":"string"}
+    data = {
+		"firstname": "Johnny",
+		"lastname": "Doe",
+        "age": 25,
+		"biography": "Test API User",
+		"email": "John.Doe@example.com"
+		}
     res = requests.post(url, json=data)
     print("RESPONSE:", res.json())
     assert res.status_code == 200
