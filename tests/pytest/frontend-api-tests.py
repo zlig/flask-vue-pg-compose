@@ -17,12 +17,19 @@ def test_1_get():
 
 def test_2_post_fail():
     url = host+"/accounts"
-    data = {"name":"string"}
+    data = {"name":"string"} # Incorrect payload
     res = requests.post(url, json=data)
     print("RESPONSE:", res.json())
     assert res.status_code != 200
 
-def test_3_post_success():
+def test_3_post_fail():
+    url = host+"/accounts"
+    data = {} # NULL payload
+    res = requests.post(url, json=data)
+    print("RESPONSE:", res.json())
+    assert res.status_code == 200
+
+def test_4_post_success():
     url = host+"/accounts"
     data = {
 		"firstname": "Johnny",
