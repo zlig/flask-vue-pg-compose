@@ -168,6 +168,8 @@ python3 -m venv .venv
 .venv/bin/pip3 install -r frontend/requirements.txt 
 ```
 
+When creating the Python virtual environment, a prompt will appear in VS Code to select it as the interpreter for the workspace.
+
 ## Resources
 
 * <https://github.com/mdn/developer-portal/blob/master/docker-compose.yml>
