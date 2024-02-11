@@ -147,6 +147,27 @@ docker volume rm $(docker volume ls -q)
 docker-compose up -d
 ```
 
+## Local Development
+
+Install prerequisites
+
+```
+# On RPM-based systems (Fedora, Red Hat, CentOS, Rocky)
+sudo dnf install python3-devel
+sudo dnf install libpq-devel
+
+# On DEB-based systems (Debian, Ubuntu)
+sudo apt-get install python3-dev
+sudo apt-get install libpq-dev
+```
+
+Create Virtual Environment
+
+```
+python3 -m venv .venv
+.venv/bin/pip3 install -r frontend/requirements.txt 
+```
+
 ## Resources
 
 * <https://github.com/mdn/developer-portal/blob/master/docker-compose.yml>
