@@ -89,7 +89,7 @@ def get_account(id):
     if account:
         return jsonify({"data": [account.as_dict()]}), 200
     else:
-        return jsonify({"data": []}), 204
+        return jsonify(), 204
 
 @app.route('/accounts', methods=["POST"])
 def add_account():
