@@ -15,6 +15,8 @@ RUN mkdir templates/
 COPY index.html ./templates/
 
 # Run the application:
+COPY __init__.py .
 COPY frontend.py .
+COPY models.py .
 CMD ["python", "frontend.py"]
 
