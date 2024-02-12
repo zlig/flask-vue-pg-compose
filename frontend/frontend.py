@@ -85,7 +85,7 @@ def get_accounts():
 
 @app.route('/accounts/<int:id>')
 def get_account(id):
-    account = db.session.query(Account).get(id)
+    account = db.session.get(Account, id)
     if account:
         return jsonify({"data": [account.as_dict()]}), 200
     else:
