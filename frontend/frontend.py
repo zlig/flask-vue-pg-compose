@@ -80,7 +80,7 @@ def hello():
 
 @app.route('/accounts', methods=['GET'])
 def get_accounts():
-    accounts = Account.query.all()
+    accounts = db.session.query(Account).all()
     return jsonify({"data": [a.as_dict() for a in accounts]}), 200
 
 @app.route('/accounts/<int:id>')
