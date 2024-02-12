@@ -78,7 +78,7 @@ def hello():
     print('Redis views: %d' % views, flush=True)
     return jsonify({"data": str(views)}), 200
 
-@app.route('/accounts', methods=['GET'])
+@app.route('/accounts', methods=['GET'], strict_slashes=False)
 def get_accounts():
     accounts = db.session.query(Account).all()
     return jsonify({"data": [a.as_dict() for a in accounts]}), 200
