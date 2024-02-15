@@ -11,16 +11,14 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy application contents
+WORKDIR /apps
+
 RUN mkdir templates/
 COPY index.html ./templates/
-
-# TODO Move to a dedicated directory i.e.
-# WORKDIR /python-docker
-# COPY . .
 
 COPY __init__.py .
 COPY frontend.py .
 COPY models.py .
 
 # Run the application:
-CMD ["python", "frontend.py"]
+CMD ["python", "/apps/frontend.py"]
