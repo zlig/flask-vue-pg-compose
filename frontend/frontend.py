@@ -34,10 +34,9 @@ db_uri = f'postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#app.config.from_object(os.environ['APP_SETTINGS'])
+#app.config.from_object(os.environ['APP_SETTINGS'])  # TODO check if can simplify loading config
 
 # DB Session
-#db = SQLAlchemy(app)
 db.init_app(app)
 
 # Redis
