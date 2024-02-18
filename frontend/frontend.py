@@ -21,6 +21,8 @@ from redis import Redis
 
 from models import *
 
+import pydantic
+
 # Global Config
 basedir = os.path.abspath(os.path.dirname(__file__))
 db_user = os.environ['POSTGRES_USER']
