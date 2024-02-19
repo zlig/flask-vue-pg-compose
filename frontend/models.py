@@ -1,4 +1,6 @@
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql import func
 
@@ -19,6 +21,17 @@ class Account(db.Model):
 
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+class User(BaseModel):
+    account_id: int
+    firstname: str = 'Jane'
+    lastname: str = 'Doe'
+    email: str = 'Jane@Doe.com'
+    age: int
+    created_at: datetime = None
+    email: str = 'Jane Doe'
+    biography: str = 'Jane@Doe.com'
+
 
 class Article(db.Model):
     article_id = db.Column(db.Integer, primary_key=True)

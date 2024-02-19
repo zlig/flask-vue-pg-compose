@@ -21,7 +21,6 @@ from redis import Redis
 
 from models import *
 
-import pydantic
 
 # Global Config
 basedir = os.path.abspath(os.path.dirname(__file__))
