@@ -1,0 +1,8 @@
+flask
+requests
+redis
+psycopg2
+SQLAlchemy
+Flask-SQLAlchemy
+sqlalchemy-utils
+pydantic
