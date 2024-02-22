@@ -1,0 +1,21 @@
+meta {
+  name: Accounts - Create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://127.0.0.1:8081/accounts
+  body: json
+  auth: none
+}
+
+body:json {
+  {      
+    "age": 25,
+    "biography": "Rando API User",
+    "email": "John.Doe@example.com",
+    "firstname": "Johnny",
+    "lastname": "Doe"
+  }
+}

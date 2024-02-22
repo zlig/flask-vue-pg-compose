@@ -1,0 +1,17 @@
+meta {
+  name: Accounts - Delete ID
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://127.0.0.1:8081/accounts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "account_id": 5
+  }
+}
