@@ -1,6 +1,6 @@
 from datetime import datetime
+from pydantic import BaseModel, EmailStr
 from flask_sqlalchemy import SQLAlchemy
-from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql import func
 
@@ -38,7 +38,7 @@ class AccountResponseModel(BaseModel):
     email: str
     age: int
     created_at: datetime
-    email: str
+    email: EmailStr
     biography: str
 
 class AccountQueryModel(BaseModel):
