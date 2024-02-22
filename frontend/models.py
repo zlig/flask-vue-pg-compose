@@ -42,8 +42,7 @@ class AccountResponseModel(BaseModel):
     biography: str
 
 class AccountQueryModel(BaseModel):
-    firstname: str
-    lastname: str
+    account_id: int
 
 class Article(db.Model):
     article_id = db.Column(db.Integer, primary_key=True)
