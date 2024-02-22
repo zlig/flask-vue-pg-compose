@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "flask-vue-pg-compose",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
