@@ -22,15 +22,15 @@ class Account(db.Model):
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-# class AccountSchema(BaseModel):
-    # account_id: int
-    # firstname: str = 'Jane'
-    # lastname: str = 'Doe'
-    # email: str = 'Jane@Doe.com'
-    # age: int
-    # created_at: datetime = None
-    # email: str = 'Jane Doe'
-    # biography: str = 'Jane@Doe.com'
+class AccountModel(BaseModel):
+    account_id: int
+    firstname: str
+    lastname: str
+    email: EmailStr
+    age: int
+    created_at: datetime
+    email: str
+    biography: str
 
 class AccountResponseModel(BaseModel):
     firstname: str
