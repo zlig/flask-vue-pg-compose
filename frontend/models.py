@@ -27,6 +27,7 @@ class AccountModel(BaseModel):
     firstname: str
     lastname: str
     email: EmailStr
+    # password: SecretStr
     age: int
     created_at: datetime
     email: str
