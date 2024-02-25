@@ -57,3 +57,10 @@ class Article(db.Model):
 
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+class ArticleModel(BaseModel):
+    article_id: int
+    name: str
+    description: str
+    created_at: datetime
+    account_id: int
