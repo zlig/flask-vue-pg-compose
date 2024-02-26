@@ -64,3 +64,6 @@ class ArticleModel(BaseModel):
     description: str
     created_at: datetime
     account_id: int
+
+class ArticleQueryModel(BaseModel):
+    text: str
