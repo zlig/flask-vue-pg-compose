@@ -99,6 +99,14 @@ def get_account(query: AccountQueryModel):
     else:
         return jsonify(), 204
 
+@app.route('/articlemodel/<ArticleQueryModel:id>', methods=["GET"])
+def get_account(query: ArticleQueryModel):
+    account = ArticleQueryModel(db.session.get(Account, query.account_id))
+    if account:
+        return jsonify({"data": [account.as_dict()]}), 200
+    else:
+        return jsonify(), 204
+
 @app.route('/accounts', methods=["POST"])
 def add_account():
     try:
