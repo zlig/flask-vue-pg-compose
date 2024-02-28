@@ -99,11 +99,11 @@ def get_account(query: AccountQueryModel):
     else:
         return jsonify(), 204
 
-@app.route('/articlemodel/<ArticleQueryModel:id>', methods=["GET"])
-def get_account(query: ArticleQueryModel):
-    account = ArticleQueryModel(db.session.get(Account, query.account_id))
-    if account:
-        return jsonify({"data": [account.as_dict()]}), 200
+@app.route('/articlemodel/<ArticleModel:id>', methods=["GET"])
+def get_account(query: ArticleModel):
+    article = ArticleQueryModel(db.session.get(Account, query.article_id))
+    if article:
+        return jsonify({"data": [article.as_dict()]}), 200
     else:
         return jsonify(), 204
 
