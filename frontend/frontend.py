@@ -11,11 +11,6 @@ import string
 from functools import wraps
 
 from flask import Flask, render_template, jsonify, request, url_for, redirect
-#from flask_sqlalchemy import SQLAlchemy
-# from sqlalchemy import create_engine, exc, Column, Integer, String
-#from sqlalchemy.ext.declarative import declarative_base
-#from sqlalchemy.orm import sessionmaker
-#from sqlalchemy.sql import func
 
 from redis import Redis
 
