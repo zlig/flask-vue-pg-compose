@@ -4,7 +4,6 @@
 # Frontend service
 #
 import os
-import json
 import random
 import string
 
