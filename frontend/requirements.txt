@@ -6,3 +6,4 @@ SQLAlchemy
 Flask-SQLAlchemy
 sqlalchemy-utils
 pydantic
+email_validator
