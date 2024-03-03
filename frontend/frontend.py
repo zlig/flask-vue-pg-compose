@@ -84,13 +84,11 @@ def get_account(id):
 
 @app.route('/accountmodel/<int:id>', methods=["GET"])
 def get_account_by_querymodel(id: int):
-    account_query = AccountQueryModel(account_id=id)
+    account_query = AccountQueryModel.model_validate({'account_id': id})
     account = db.session.get(Account, account_query.account_id)
-    response= AccountResponseModel.model_validate(account)
-    # account = AccountResponseModel(db.session.get(Account, account_query.account_id))
     if account:
-        return jsonify({"data": [response.model_dump_json()]}), 200
-        # return jsonify({"data": [account.as_dict()]}), 200
+        response= AccountResponseModel.model_validate(account)
+        return jsonify({"data": [response.model_dump()]}), 200
     else:
         return jsonify(), 204
 
