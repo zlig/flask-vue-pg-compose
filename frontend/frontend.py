@@ -82,7 +82,7 @@ def get_account(id):
     else:
         return jsonify(), 204
 
-@app.route('/accountmodel/<int:id>', methods=["GET"])
+@app.route('/accountmodel/<int:query>', methods=["GET"])
 def get_account_by_querymodel(query: AccountQueryModel):
     account = AccountResponseModel(db.session.get(Account, query.account_id))
     if account:
