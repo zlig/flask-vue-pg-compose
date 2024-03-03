@@ -21,4 +21,4 @@ COPY frontend.py .
 COPY models.py .
 
 # Run the application:
-CMD ["python", "/apps/frontend.py"]
+CMD ["python", "/apps/frontend/frontend.py"]
