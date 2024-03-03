@@ -6,8 +6,6 @@
 import os
 import random
 
-from functools import wraps
-
 from flask import Flask, render_template, jsonify, request, url_for, redirect
 
 from redis import Redis
@@ -169,6 +167,8 @@ def page_not_found(e):
     return jsonify({"data": "not found", "error": "resource not found"}), 404
 
 
+# from functools import wraps
+# 
 # # Authentication
 # def authenticated(func):
 #     """Checks whether user is logged in or raises error 401."""
