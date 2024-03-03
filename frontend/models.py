@@ -42,6 +42,8 @@ class AccountResponseModel(BaseModel):
     created_at: datetime
     email: EmailStr
     biography: str
+    class Config:
+       orm_mode = True
 
 class AccountQueryModel(BaseModel):
     account_id: int
