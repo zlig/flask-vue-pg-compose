@@ -43,7 +43,7 @@ class AccountResponseModel(BaseModel):
     email: EmailStr
     biography: str
     class Config:
-       orm_mode = True
+       from_attributes = True
 
 class AccountQueryModel(BaseModel):
     account_id: int
