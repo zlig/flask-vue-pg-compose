@@ -89,7 +89,8 @@ def get_account_by_querymodel(id: int):
     response= AccountResponseModel.model_validate(account)
     # account = AccountResponseModel(db.session.get(Account, account_query.account_id))
     if account:
-        return jsonify({"data": [account.as_dict()]}), 200
+        return jsonify({"data": [response.model_dump_json()]}), 200
+        # return jsonify({"data": [account.as_dict()]}), 200
     else:
         return jsonify(), 204
 
