@@ -97,7 +97,7 @@ def get_article_by_querymodel(ArticleModel: query):
     article_query = ArticleQueryModel.model_validate({'account_id': id})
     article = db.session.get(Article, article_query.account_id)
     if article:
-        response= ArticleModel.model_validate(account)
+        response= ArticleModel.model_validate(article)
         return jsonify({"data": [response.model_dump()]}), 200
     else:
         return jsonify(), 204
