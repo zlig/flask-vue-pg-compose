@@ -82,7 +82,7 @@ def get_account(id):
     else:
         return jsonify(), 204
 
-@app.route('/accountmodel/<int:id>', methods=["GET"])
+@app.route('/accountmodel/<id>', methods=["GET"])
 def get_account_by_querymodel(id: int):
     account_query = AccountQueryModel.model_validate({'account_id': id})
     account = db.session.get(Account, account_query.account_id)
@@ -92,8 +92,8 @@ def get_account_by_querymodel(id: int):
     else:
         return jsonify(), 204
 
-@app.route('/articlemodel/<int:id>', methods=["GET"])
-def get_article_by_querymodel(ArticleModel: query):
+@app.route('/articlemodel/<id>', methods=["GET"])
+def get_article_by_querymodel(id: ArticleQueryModel):
     article_query = ArticleQueryModel.model_validate({'account_id': id})
     article = db.session.get(Article, article_query.account_id)
     if article:
