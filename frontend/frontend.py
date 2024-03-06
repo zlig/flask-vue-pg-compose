@@ -7,7 +7,7 @@ import os
 import random
 
 from flask import Flask, render_template, jsonify, request, url_for, redirect
-
+from pydantic import ValidationError
 from redis import Redis
 
 from models import *
@@ -33,6 +33,17 @@ db.init_app(app)
 
 # Redis
 redis = Redis(host='info-redis', port=6379)
+
+
+# Errors Handlers
+@app.errorhandler(404)
+def page_not_found(e):
+    return jsonify({"data": "not found", "error": "resource not found"}), 404
+
+@app.errorhandler(ValidationError)
+def pydantic_validation_error(e):
+    return jsonify({"data": "", "error": "invalid parameter value"}), 500
+
 
 # Functions
 def generate_string(length):
@@ -83,8 +94,9 @@ def get_account(id):
         return jsonify(), 204
 
 @app.route('/accountmodel/<id>', methods=["GET"])
-def get_account_by_querymodel(id: AccountQueryModel):
-    account = db.session.get(Account, id)
+def get_account_by_querymodel(id):
+    query = AccountQueryModel.model_validate({'account_id': id})
+    account = db.session.get(Account, query.account_id)
     if account:
         response= AccountResponseModel.model_validate(account)
         return jsonify({"data": [response.model_dump()]}), 200
@@ -92,8 +104,9 @@ def get_account_by_querymodel(id: AccountQueryModel):
         return jsonify(), 204
 
 @app.route('/articlemodel/<id>', methods=["GET"])
-def get_article_by_querymodel(id: ArticleQueryModel):
-    article = db.session.get(Article, id)
+def get_article_by_querymodel(id):
+    query = ArticleQueryModel.model_validate({'article_id': id})
+    article = db.session.get(Article, query.article_id)
     if article:
         response= ArticleModel.model_validate(article)
         return jsonify({"data": [response.model_dump()]}), 200
@@ -163,10 +176,6 @@ def init():
     db.create_all()
     output += "All tables created."
     return jsonify({"data": output.strip()}), 200
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return jsonify({"data": "not found", "error": "resource not found"}), 404
 
 
 # from functools import wraps
