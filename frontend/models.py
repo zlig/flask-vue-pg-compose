@@ -53,7 +53,7 @@ class Article(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
-    last_update = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    last_updated = db.Column(db.DateTime(timezone=True), server_default=func.now())
     account_id = db.Column(db.Integer, db.ForeignKey('Account.account_id'))
 
     def __repr__(self):
