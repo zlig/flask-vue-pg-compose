@@ -69,4 +69,4 @@ class ArticleModel(BaseModel):
     account_id: int
 
 class ArticleQueryModel(BaseModel):
-    text: str
+    article_id: int
