@@ -52,6 +52,7 @@ class Article(db.Model):
     article_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
+    created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     last_update = db.Column(db.DateTime(timezone=True), server_default=func.now())
     account_id = db.Column(db.Integer, db.ForeignKey('Account.account_id'))
 
@@ -65,7 +66,6 @@ class ArticleModel(BaseModel):
     article_id: int
     name: str
     description: str
-    created_at: datetime
     account_id: int
 
 class ArticleQueryModel(BaseModel):
