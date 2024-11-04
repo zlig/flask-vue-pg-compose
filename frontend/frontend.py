@@ -178,6 +178,10 @@ def init():
     return jsonify({"data": output.strip()}), 200
 
 
+@app.route('/urlmap')
+def get_url_map():
+    return ['%s' % rule for rule in app.url_map.iter_rules()]
+
 # from functools import wraps
 # 
 # # Authentication
