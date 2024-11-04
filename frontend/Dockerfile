@@ -14,9 +14,10 @@ RUN pip install -r requirements.txt
 WORKDIR /apps/frontend
 
 RUN mkdir templates/
-RUN mkdir templates/static/
 COPY index.html ./templates/
-COPY static/favicon.ico ./templates/static/
+
+RUN mkdir static/
+COPY static/favicon.ico ./static/
 
 COPY __init__.py .
 COPY frontend.py .
