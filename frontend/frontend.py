@@ -6,7 +6,7 @@
 import os
 import random
 
-from flask import Flask, render_template, jsonify, request, url_for, redirect
+from flask import Flask, render_template, send_from_directory, jsonify, request, url_for, redirect
 from pydantic import ValidationError
 from redis import Redis
 
@@ -60,6 +60,11 @@ def generate_number(minimum=1, maximum=100):
 @app.route("/hello")
 def index():
     return render_template('index.html')
+
+@app.route("/static/favicon.ico")
+def favicon():
+    print(os.path.join(app.root_path, 'static'))
+    return send_from_directory(app.static_folder, 'favicon.ico')
 
 @app.route("/hi")
 @app.route("/hi/<name>")

@@ -15,7 +15,7 @@ WORKDIR /apps/frontend
 
 RUN mkdir templates/
 COPY index.html ./templates/
-COPY favicon.ico ./templates/
+COPY static ./templates/
 
 COPY __init__.py .
 COPY frontend.py .
