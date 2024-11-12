@@ -150,6 +150,76 @@ def delete_account():
     except Exception as e:
         return jsonify({"data": {}, "error": "deletion failed"}), 500
 
+
+
+@app.route('/articles', methods=['GET'], strict_slashes=False)
+def get_articles():
+    articles = db.session.query(Article).all()
+    return jsonify({"data": [a.as_dict() for a in articles]}), 200
+
+@app.route('/articles/<int:id>')
+def get_article(id):
+    article = db.session.get(Article, id)
+    if article:
+        return jsonify({"data": [article.as_dict()]}), 200
+    else:
+        return jsonify(), 204
+
+@app.route('/articlemodel/<id>', methods=["GET"])
+def get_article_by_querymodel(id):
+    query = ArticleQueryModel.model_validate({'article_id': id})
+    article = db.session.get(Article, query.article_id)
+    if article:
+        response= ArticleResponseModel.model_validate(article)
+        return jsonify({"data": [response.model_dump()]}), 200
+    else:
+        return jsonify(), 204
+
+# TODO Check this is correct
+# @app.route('/articlemodel/<id>', methods=["GET"])
+# def get_article_by_querymodel(id):
+#     query = ArticleQueryModel.model_validate({'article_id': id})
+#     article = db.session.get(Article, query.article_id)
+#     if article:
+#         response= ArticleModel.model_validate(article)
+#         return jsonify({"data": [response.model_dump()]}), 200
+#     else:
+#         return jsonify(), 204
+
+@app.route('/articles', methods=["POST"])
+def add_article():
+    try:
+        # TODO - Create article
+        # firstname = request.json['firstname']
+        # lastname = request.json['lastname']
+        # email = request.json['email']
+        # age = request.json['age']
+        # biography = request.json['biography']
+        new_article= Article(firstname=firstname, lastname=lastname, email=email, age=age, biography=biography)
+
+        db.session.add(new_article)
+        db.session.commit()
+
+        return jsonify({"response": "inserted article %d" % new_article.article_id}), 200
+
+    except Exception as e:
+        return jsonify({"data": {}, "error": "insertion failed"}), 500
+
+@app.route('/articles', methods=["DELETE"])
+def delete_article():
+    try:
+        article_id = request.json['article_id']
+
+        Article.query.filter(Article.article_id == article_id).delete()
+
+        db.session.commit()
+
+        return jsonify({"response": "deleted article %d" % article_id}), 200
+
+    except Exception as e:
+        return jsonify({"data": {}, "error": "deletion failed"}), 500
+
+
 @app.route('/tests/data/accounts/')
 def add_tests_data_accounts():
     firstname = generate_string(generate_number(4, 8))
