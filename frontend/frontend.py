@@ -175,7 +175,7 @@ def get_article_by_querymodel(id):
     else:
         return jsonify(), 204
 
-# TODO Check this is correct
+# TODO Check this is correct or rename model
 # @app.route('/articlemodel/<id>', methods=["GET"])
 # def get_article_by_querymodel(id):
 #     query = ArticleQueryModel.model_validate({'article_id': id})
