@@ -190,12 +190,16 @@ def get_article_by_querymodel(id):
 def add_article():
     try:
         # TODO - Create article
-        # firstname = request.json['firstname']
-        # lastname = request.json['lastname']
-        # email = request.json['email']
-        # age = request.json['age']
-        # biography = request.json['biography']
-        new_article= Article(firstname=firstname, lastname=lastname, email=email, age=age, biography=biography)
+        # article_id = 
+        # TODO add title in model
+        title = request.json['title']
+        name = request.json['name']
+        description = request.json['description']
+        # TODO add thumbnail to article model and class
+        # created_at = 
+        # last_updated = 
+        account_id = None # TODO retrieve account ID from session
+        new_article= Article(name=name, description=description, account_id=account_id)
 
         db.session.add(new_article)
         db.session.commit()
