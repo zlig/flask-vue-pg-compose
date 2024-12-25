@@ -170,6 +170,7 @@ def get_article_by_querymodel(id):
     query = ArticleQueryModel.model_validate({'article_id': id})
     article = db.session.get(Article, query.article_id)
     if article:
+        # TODO check ArticleResponseModel
         response= ArticleResponseModel.model_validate(article)
         return jsonify({"data": [response.model_dump()]}), 200
     else:
@@ -198,7 +199,9 @@ def add_article():
         # TODO add thumbnail to article model and class
         # created_at = 
         # last_updated = 
-        account_id = None # TODO retrieve account ID from session
+        # TODO implement login and session
+        # TODO retrieve account ID from session or allow passing by request if admin
+        account_id = None 
         new_article= Article(name=name, description=description, account_id=account_id)
 
         db.session.add(new_article)
