@@ -48,6 +48,7 @@ class AccountResponseModel(BaseModel):
 class AccountQueryModel(BaseModel):
     account_id: int
 
+
 class Article(db.Model):
     article_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -67,6 +68,14 @@ class ArticleModel(BaseModel):
     name: str
     description: str
     account_id: int
+
+class ArticleResponseModel(BaseModel):
+    article_id: int
+    name: str
+    description: str
+    account_id: int
+    class Config:
+       from_attributes = True
 
 class ArticleQueryModel(BaseModel):
     article_id: int
