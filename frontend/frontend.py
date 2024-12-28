@@ -108,16 +108,6 @@ def get_account_by_querymodel(id):
     else:
         return jsonify(), 204
 
-@app.route('/articlemodel/<id>', methods=["GET"])
-def get_article_by_querymodel(id):
-    query = ArticleQueryModel.model_validate({'article_id': id})
-    article = db.session.get(Article, query.article_id)
-    if article:
-        response= ArticleModel.model_validate(article)
-        return jsonify({"data": [response.model_dump()]}), 200
-    else:
-        return jsonify(), 204
-
 @app.route('/accounts', methods=["POST"])
 def add_account():
     try:
@@ -175,33 +165,28 @@ def get_article_by_querymodel(id):
     else:
         return jsonify(), 204
 
-# TODO Check this is correct or rename model
-# @app.route('/articlemodel/<id>', methods=["GET"])
-# def get_article_by_querymodel(id):
-#     query = ArticleQueryModel.model_validate({'article_id': id})
-#     article = db.session.get(Article, query.article_id)
-#     if article:
-#         response= ArticleModel.model_validate(article)
-#         return jsonify({"data": [response.model_dump()]}), 200
-#     else:
-#         return jsonify(), 204
+@app.route('/articlemodel/<id>', methods=["GET"])
+def get_article_by_querymodel(id):
+    query = ArticleQueryModel.model_validate({'article_id': id})
+    article = db.session.get(Article, query.article_id)
+    if article:
+        response= ArticleModel.model_validate(article)
+        return jsonify({"data": [response.model_dump()]}), 200
+    else:
+        return jsonify(), 204
 
 @app.route('/articles', methods=["POST"])
 def add_article():
     try:
         # TODO - Create article
-        # article_id = 
-        # TODO add title in model
         title = request.json['title']
-        name = request.json['name']
         description = request.json['description']
+        main = request.json['main']
         # TODO add thumbnail to article model and class
-        # created_at = 
-        # last_updated = 
         # TODO implement login and session
         # TODO retrieve account ID from session or allow passing by request if admin
         account_id = None 
-        new_article= Article(name=name, description=description, account_id=account_id)
+        new_article= Article(title=title, description=description, main=main, account_id=account_id)
 
         db.session.add(new_article)
         db.session.commit()

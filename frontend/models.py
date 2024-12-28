@@ -51,8 +51,9 @@ class AccountQueryModel(BaseModel):
 
 class Article(db.Model):
     article_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
+    main = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     last_updated = db.Column(db.DateTime(timezone=True), server_default=func.now())
     account_id = db.Column(db.Integer, db.ForeignKey('Account.account_id'))
@@ -65,14 +66,16 @@ class Article(db.Model):
 
 class ArticleModel(BaseModel):
     article_id: int
-    name: str
+    title: str
     description: str
+    main: str
     account_id: int
 
 class ArticleResponseModel(BaseModel):
     article_id: int
-    name: str
+    title: str
     description: str
+    main: str
     account_id: int
     class Config:
        from_attributes = True
