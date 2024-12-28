@@ -1,4 +1,4 @@
--- NOTE: PostgreSQL has restriction on columns to not use
+-- NOTE: PostgreSQL has restrictions on columns to not use
 --	     https://www.postgresql.org/docs/current/sql-keywords-appendix.html
 
 -- Dropping table

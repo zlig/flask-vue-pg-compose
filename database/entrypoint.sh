@@ -9,11 +9,13 @@ set -e
 SCHEMA_VERSION_TABLE="version"
 SCRIPTS_DIR="/docker-entrypoint-initdb.d"
 
-# # DEBUG
-# echo "Displaying debug information.."
-# whoami
-# pwd
-# ls -l $SCRIPTS_DIR
+# DEBUG
+echo "Displaying debug information.."
+uptime
+df -h
+whoami
+pwd
+ls -l $SCRIPTS_DIR
 
 
 # Versions the database schema (if it exists)
