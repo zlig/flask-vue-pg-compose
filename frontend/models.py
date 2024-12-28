@@ -54,6 +54,7 @@ class Article(db.Model):
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255), nullable=True)
     main = db.Column(db.Text, nullable=True)
+    thumbnail = db.Column(db.String(2048), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     last_updated = db.Column(db.DateTime(timezone=True), server_default=func.now())
     account_id = db.Column(db.Integer, db.ForeignKey('Account.account_id'))
@@ -69,6 +70,7 @@ class ArticleModel(BaseModel):
     title: str
     description: str
     main: str
+    thumbnail: str
     account_id: int
 
 class ArticleResponseModel(BaseModel):
@@ -76,6 +78,7 @@ class ArticleResponseModel(BaseModel):
     title: str
     description: str
     main: str
+    thumbnail: str
     account_id: int
     class Config:
        from_attributes = True

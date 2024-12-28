@@ -6,7 +6,7 @@
 import os
 import random
 
-from flask import Flask, render_template, send_from_directory, jsonify, request, url_for, redirect
+from flask import Flask, render_template, send_from_directory, jsonify, request, session, url_for, redirect
 from pydantic import ValidationError
 from redis import Redis
 
@@ -178,18 +178,20 @@ def get_article_by_querymodel(id):
 @app.route('/articles', methods=["POST"])
 def add_article():
     try:
-        # TODO - Create article
-        title = request.json['title']
-        description = request.json['description']
-        main = request.json['main']
-        # TODO add thumbnail to article model and class
-        # TODO implement login and session
-        # TODO retrieve account ID from session or allow passing by request if admin
-        account_id = None 
-        new_article= Article(title=title, description=description, main=main, account_id=account_id)
+        if 'account_id' in session:
+            # TODO - Create article
+            title = request.json['title']
+            description = request.json['description']
+            main = request.json['main']
+            thumbnail = request.json['thumbnail']
+            # TODO implement login
+            account_id = session['account_id'] 
+            new_article= Article(title=title, description=description, main=main, thumbnail=thumbnail, account_id=account_id)
 
-        db.session.add(new_article)
-        db.session.commit()
+            db.session.add(new_article)
+            db.session.commit()
+        else:
+            return jsonify({"data": {}, "error": "unauthorized"}), 401
 
         return jsonify({"response": "inserted article %d" % new_article.article_id}), 200
 
