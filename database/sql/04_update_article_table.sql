@@ -3,8 +3,8 @@
 -- Dropping table
 DROP TABLE IF EXISTS article;
 
--- Creation of article table with new title column
-CREATE TABLE article (
+-- Recreation of article table with new title column
+CREATE TABLE IF NOT EXISTS article (
 	article_id SERIAL PRIMARY KEY,
 	title VARCHAR(255) NOT NULL,
 	name VARCHAR(255) NOT NULL,

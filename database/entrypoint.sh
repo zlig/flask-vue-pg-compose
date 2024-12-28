@@ -40,7 +40,7 @@ if [ ! -z "$DATABASE_ALREADY_EXISTS" ]; then
   # Get current schema version
   CURRENT_VERSION=$(psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -t -c "SELECT version FROM $SCHEMA_VERSION_TABLE" | xargs)
 
-  # Apply SQL scripts
+  # Apply SQL scripts (ensure no spaces in filenames)
   for script in $(ls $SCRIPTS_DIR/*.sql | sort -V); do
 
     # Get script version

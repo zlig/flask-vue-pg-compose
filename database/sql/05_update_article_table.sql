@@ -1,8 +1,11 @@
--- NOTE: PostgreSQL dhas restriction on columns to not use
+-- NOTE: PostgreSQL has restriction on columns to not use
 --	     https://www.postgresql.org/docs/current/sql-keywords-appendix.html
 
--- Creation of article table with title, content and thumbnail columns
-CREATE TABLE article (
+-- Dropping table
+DROP TABLE IF EXISTS article;
+
+-- Recreation of article table with title, content and thumbnail columns
+CREATE TABLE IF NOT EXISTS article (
 	article_id SERIAL PRIMARY KEY,
 	title VARCHAR(255) NOT NULL,
 	description VARCHAR (255),
