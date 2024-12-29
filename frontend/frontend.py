@@ -3,6 +3,8 @@
 #
 # Frontend service
 #
+import base64
+import logging
 import os
 import random
 
@@ -23,6 +25,10 @@ db_host = "info-db"
 db_port = "5432"
 db_name = os.environ['POSTGRES_DB']
 db_uri = f'postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
+
+# Logging
+logging.basicConfig(format='[%(asctime)-15s] [%(threadName)s] %(levelname)s %(message)s', level=logging.INFO)
+logger = logging.getLogger('root')
 
 # Application
 app = Flask(__name__)
@@ -109,6 +115,7 @@ def hi(name=None):
 
 @app.route("/ping")
 def ping():
+    logger.error('Ping session is: %s' % session)
     return jsonify({"response": "pong"}), 200
 
 @app.route('/redis')
