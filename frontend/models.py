@@ -85,3 +85,24 @@ class ArticleResponseModel(BaseModel):
 
 class ArticleQueryModel(BaseModel):
     article_id: int
+
+
+# from flask_sqlalchemy import SQLAlchemy
+
+# db = SQLAlchemy()
+
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), unique=True, nullable=False)
+#     password_hash = db.Column(db.String(120), nullable=False)  # Store password hash, not plaintext
+
+#     # Define a one-to-one relationship with API tokens
+#     api_token = db.relationship('APIToken', uselist=False, backref='user', lazy=True)
+
+# class APIToken(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     token = db.Column(db.String(255), unique=True, nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+#     # Define a backreference to the User model
+#     user = db.relationship('User', backref=db.backref('api_token', uselist=False))

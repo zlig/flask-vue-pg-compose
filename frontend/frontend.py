@@ -12,6 +12,8 @@ from redis import Redis
 
 from models import *
 
+from functools import wraps
+import secrets
 
 # Global Config
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -44,6 +46,11 @@ def page_not_found(e):
 def pydantic_validation_error(e):
     return jsonify({"data": "", "error": "invalid parameter value"}), 500
 
+def sanitize_user_input(word):
+    black_list = ['__import__', '/', '\\', '&', ';']
+    for char in black_list:
+        word = word.replace(char, '')
+    return word
 
 # Functions
 def generate_string(length):
@@ -54,6 +61,32 @@ def generate_string(length):
 
 def generate_number(minimum=1, maximum=100):
     return random.randint(minimum, maximum)
+
+
+# Authentication
+def authenticated(func):
+    """Checks whether user is logged in or raises error 401."""
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if session.get('admin_user', False):
+            return func(*args, **kwargs)
+        else:
+            return jsonify({"data": {}, "error": "Authentication required.", "authenticated": False}), 401
+    return wrapper
+
+def generate_api_token():
+    return secrets.token_urlsafe()
+
+def obfuscate(text, decode=False):
+    try:
+        if decode:
+            return base64.b64decode(decode(text, 'rot13'))
+        else:
+            return base64.b64encode(encode(text, 'rot13'))
+    except Exception as e:
+        logger.error('Error while encoding or decoding text: %s' % e)
+        return text
+
 
 # Routes
 @app.route("/")
@@ -240,18 +273,6 @@ def init():
 def get_url_map():
     return ['%s' % rule for rule in app.url_map.iter_rules()]
 
-# from functools import wraps
-# 
-# # Authentication
-# def authenticated(func):
-#     """Checks whether user is logged in or raises error 401."""
-#     @wraps(func)
-#     def wrapper(*args, **kwargs):
-#         if session.get('admin_user', False):
-#             return func(*args, **kwargs)
-#         else:
-#             return jsonify({"data": {}, "error": "Authentication required.", "authenticated": False}), 401
-#     return wrapper
 
 # @app.route("/api/", strict_slashes=False)
 # def status():
