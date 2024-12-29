@@ -118,6 +118,14 @@ def hello():
     print('Redis views: %d' % views, flush=True)
     return jsonify({"data": str(views)}), 200
 
+@app.route("/forbidden")
+@authenticated
+def ping():
+    return jsonify({"response": "hello authenticated user"}), 200
+
+
+# Accounts
+
 @app.route('/accounts', methods=['GET'], strict_slashes=False)
 def get_accounts():
     accounts = db.session.query(Account).all()
@@ -174,6 +182,7 @@ def delete_account():
         return jsonify({"data": {}, "error": "deletion failed"}), 500
 
 
+# Articles
 
 @app.route('/articles', methods=['GET'], strict_slashes=False)
 def get_articles():
