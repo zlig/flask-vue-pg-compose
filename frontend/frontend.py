@@ -15,6 +15,7 @@ from redis import Redis
 from models import *
 
 from functools import wraps
+from codecs import encode
 import secrets
 
 # Global Config
@@ -250,7 +251,6 @@ def delete_article():
 
     except Exception as e:
         return jsonify({"data": {}, "error": "deletion failed"}), 500
-
 
 @app.route('/tests/data/accounts/')
 def add_tests_data_accounts():
