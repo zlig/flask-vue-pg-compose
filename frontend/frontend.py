@@ -120,7 +120,7 @@ def hello():
 
 @app.route("/forbidden")
 @authenticated
-def ping():
+def hello_authenticated():
     return jsonify({"response": "hello authenticated user"}), 200
 
 
