@@ -61,6 +61,12 @@ To start the containers only in the current terminal and see the logs live, run 
 
 `docker-compose up --remove-orphans`
 
+#### Rebuild a running container
+
+After modifying the code, force rebuilding and restarting a container with:
+
+`docker-compose up --build --force-recreate --no-deps <frontend|backend|database>`
+
 #### Check logs
 
 `docker-compose logs` or `docker-compose logs -f`
