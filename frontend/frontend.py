@@ -94,6 +94,41 @@ def obfuscate(text, decode=False):
         logger.error('Error while encoding or decoding text: %s' % e)
         return text
 
+@app.route("/auth/login/", methods=['POST'], strict_slashes=False)
+def login():
+    global config_file
+    if request.method == 'POST':
+        data = ast.literal_eval(request.data)
+        if 'password' in data and os.path.isfile(config_file):
+            config = ConfigParser.ConfigParser()
+            config.readfp(open(config_file))
+            if 'admin' in config.sections():
+                current_password = config.get('admin', 'password')
+                password = sanitize_user_input(data['password'])
+                if obfuscate(password) == current_password:
+                    session.clear()
+                    session['admin_user'] = True
+                    return jsonify({"data": {"response": "Login success!", "authenticated": True}}), 200
+                else:
+                    return jsonify({"data": {}, "error": "Unauthorised, authentication failure.."}), 401
+            else:
+                return jsonify({'data': {}, 'error': 'Could not retrieve current credentials..'}), 500
+        else:
+            return jsonify({"data": {}, "error": "Password needs to be specified"}), 500
+    else:
+        return jsonify({"data": {}, "error": "Incorrect request method"}), 500
+
+
+@app.route("/auth/logout/", methods=['GET', 'POST'], strict_slashes=False)
+@authenticated
+def logout():
+    try:
+        session.clear()
+        return jsonify({"data": {"response": "Logged out successfully!"}}), 200
+    except Exception as e:
+        logger.error('Error while logging out: %s' % e)
+        return jsonify({'data': {}, 'error': 'Exception encountered while logging out..'}), 500
+
 
 # Routes
 @app.route("/")
@@ -328,42 +363,6 @@ def get_url_map():
 #             return jsonify({"data": {}, "error": "Password needs to be specified"}), 500
 #     else:
 #         return jsonify({"data": {}, "error": "Incorrect request method"}), 500
-
-# @app.route("/auth/login/", methods=['POST'], strict_slashes=False)
-# def login():
-#     global config_file
-#     if request.method == 'POST':
-#         data = ast.literal_eval(request.data)
-#         if 'password' in data and os.path.isfile(config_file):
-#             config = ConfigParser.ConfigParser()
-#             config.readfp(open(config_file))
-#             if 'admin' in config.sections():
-#                 current_password = config.get('admin', 'password')
-#                 password = sanitize_user_input(data['password'])
-#                 if obfuscate(password) == current_password:
-#                     session.clear()
-#                     session['admin_user'] = True
-#                     return jsonify({"data": {"response": "Login success!", "authenticated": True}}), 200
-#                 else:
-#                     return jsonify({"data": {}, "error": "Unauthorised, authentication failure.."}), 401
-#             else:
-#                 return jsonify({'data': {}, 'error': 'Could not retrieve current credentials..'}), 500
-#         else:
-#             return jsonify({"data": {}, "error": "Password needs to be specified"}), 500
-#     else:
-#         return jsonify({"data": {}, "error": "Incorrect request method"}), 500
-
-
-# @app.route("/auth/logout/", methods=['GET', 'POST'], strict_slashes=False)
-# @authenticated
-# def logout():
-#     try:
-#         session.clear()
-#         return jsonify({"data": {"response": "Logged out successfully!"}}), 200
-#     except Exception as e:
-#         logger.error('Error while logging out: %s' % e)
-#         return jsonify({'data': {}, 'error': 'Exception encountered while logging out..'}), 500
-
 
 # def store_password(password):
 #     global config_file
