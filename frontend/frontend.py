@@ -4,6 +4,7 @@
 # Frontend service
 #
 import base64
+import datetime
 import logging
 import os
 import random
@@ -96,28 +97,23 @@ def obfuscate(text, decode=False):
 
 @app.route("/auth/login/", methods=['POST'], strict_slashes=False)
 def login():
-    global config_file
     if request.method == 'POST':
-        data = ast.literal_eval(request.data)
-        if 'password' in data and os.path.isfile(config_file):
-            config = ConfigParser.ConfigParser()
-            config.readfp(open(config_file))
-            if 'admin' in config.sections():
-                current_password = config.get('admin', 'password')
-                password = sanitize_user_input(data['password'])
-                if obfuscate(password) == current_password:
-                    session.clear()
-                    session['admin_user'] = True
-                    return jsonify({"data": {"response": "Login success!", "authenticated": True}}), 200
-                else:
-                    return jsonify({"data": {}, "error": "Unauthorised, authentication failure.."}), 401
-            else:
-                return jsonify({'data': {}, 'error': 'Could not retrieve current credentials..'}), 500
-        else:
-            return jsonify({"data": {}, "error": "Password needs to be specified"}), 500
-    else:
-        return jsonify({"data": {}, "error": "Incorrect request method"}), 500
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
 
+        if not username or not password:
+            return jsonify({"data": {}, 'error': 'Username and password are required'}), 400
+
+        account = Account.query.filter_by(username=username).first()
+
+        if account and check_password_hash(account.password_hash, password):
+            session['authenticated'] = True
+            session['username'] = username
+            session['login_time'] = datetime.datetime.now() 
+            return jsonify({"data": {"response": "Login successful", "authenticated": True}}), 200
+        else:
+            return jsonify({"data": {}, 'error': 'Invalid username or password'}), 401
 
 @app.route("/auth/logout/", methods=['GET', 'POST'], strict_slashes=False)
 @authenticated

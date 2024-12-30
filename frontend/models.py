@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.sql import func
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 db = SQLAlchemy()
 
 # Models
@@ -16,6 +18,16 @@ class Account(db.Model):
     age = db.Column(db.Integer)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     biography = db.Column(db.Text)
+    # Define a one-to-one relationship with Password Hashes
+    password_hash = db.relationship('PasswordHash', uselist=False, backref='account', lazy=True)
+    # Define a one-to-one relationship with API tokens
+    api_token = db.relationship('APIToken', uselist=False, backref='account', lazy=True)
+
+    def set_password(self, secret):
+        self.password = generate_password_hash(secret)
+
+    def check_password(self, secret):
+        return check_password_hash(self.password, secret)
 
     def __repr__(self):
         return f'<Account {self.firstname} {self.lastname} {self.email}>'
@@ -96,13 +108,21 @@ class ArticleQueryModel(BaseModel):
 #     username = db.Column(db.String(80), unique=True, nullable=False)
 #     password_hash = db.Column(db.String(120), nullable=False)  # Store password hash, not plaintext
 
-#     # Define a one-to-one relationship with API tokens
-#     api_token = db.relationship('APIToken', uselist=False, backref='user', lazy=True)
+    # Define a one-to-one relationship with API tokens
+    api_token = db.relationship('APIToken', uselist=False, backref='user', lazy=True)
 
-# class APIToken(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     token = db.Column(db.String(255), unique=True, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+class PasswordHash(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    password_hash = db.Column(db.String(255), unique=True, nullable=False)
+    account_id = db.Column(db.Integer, db.ForeignKey('account.account_id'), nullable=False)
 
-#     # Define a backreference to the User model
-#     user = db.relationship('User', backref=db.backref('api_token', uselist=False))
+    # Define a backreference to the Account model
+    account = db.relationship('Account', backref=db.backref('password_hash', uselist=False))
+
+class APIToken(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    token = db.Column(db.String(255), unique=True, nullable=False)
+    account_id = db.Column(db.Integer, db.ForeignKey('account.account_id'), nullable=False)
+
+    # Define a backreference to the Account model
+    account = db.relationship('Account', backref=db.backref('api_token', uselist=False))
