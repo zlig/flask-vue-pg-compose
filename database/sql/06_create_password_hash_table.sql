@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS password_hash (
 	password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMPTZ DEFAULT Now(),
     last_updated TIMESTAMPTZ DEFAULT Now(),
+	account_id SERIAL,
 	FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
 
