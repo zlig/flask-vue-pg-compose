@@ -76,11 +76,21 @@ def authenticated(func):
     """Checks whether user is logged in or raises error 401."""
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if session.get('admin_user', False):
+        if session.get('username', False):
             return func(*args, **kwargs)
         else:
             return jsonify({"data": {}, "error": "Authentication required.", "authenticated": False}), 401
     return wrapper
+
+def admin_required(func):
+    """Custom decorator to check if the user has admin role"""
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if session.get('admin_user', False):
+            return func(*args, **kwargs)
+        else:
+            return jsonify({"data": {}, "error": "You do not have sufficient privileges.", "authenticated": False}), 401
+    return decorated_function
 
 def generate_api_token():
     return secrets.token_urlsafe()
