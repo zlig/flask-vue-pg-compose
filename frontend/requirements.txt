@@ -7,3 +7,4 @@ Flask-SQLAlchemy
 sqlalchemy-utils
 pydantic
 email_validator
+ConfigParser

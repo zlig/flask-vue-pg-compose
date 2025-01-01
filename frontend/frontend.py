@@ -8,6 +8,7 @@ import datetime
 import logging
 import os
 import random
+import ConfigParser
 
 from flask import Flask, render_template, send_from_directory, jsonify, request, session, url_for, redirect
 from pydantic import ValidationError
@@ -69,6 +70,24 @@ def generate_string(length):
 
 def generate_number(minimum=1, maximum=100):
     return random.randint(minimum, maximum)
+
+def store_password(password):
+    global config_file
+    try:
+        config = ConfigParser.ConfigParser()
+        if os.path.isfile(config_file):
+            config.readfp(open(config_file))
+            if 'admin' in config.sections():
+                config.remove_section('admin')
+        config.add_section('admin')
+        config.set('admin', 'password', obfuscate(password))
+
+        with open(config_file, 'w') as outfile:
+            config.write(outfile)
+
+        return True
+    except Exception:
+        return False
 
 
 # Authentication
