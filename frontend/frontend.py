@@ -10,7 +10,7 @@ import os
 import random
 import configparser
 
-from flask import Flask, render_template, send_from_directory, jsonify, request, session, url_for, redirect
+from flask import Flask, render_template, send_from_directory, jsonify, request, session
 from pydantic import ValidationError
 from redis import Redis
 
