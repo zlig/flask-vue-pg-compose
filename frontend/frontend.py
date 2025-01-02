@@ -8,7 +8,7 @@ import datetime
 import logging
 import os
 import random
-import ConfigParser
+import configparser
 
 from flask import Flask, render_template, send_from_directory, jsonify, request, session, url_for, redirect
 from pydantic import ValidationError
@@ -74,7 +74,7 @@ def generate_number(minimum=1, maximum=100):
 def store_password(password):
     global config_file
     try:
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         if os.path.isfile(config_file):
             config.readfp(open(config_file))
             if 'admin' in config.sections():
