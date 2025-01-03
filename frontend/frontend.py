@@ -127,22 +127,26 @@ def obfuscate(text, decode=False):
 @app.route("/auth/login/", methods=['POST'], strict_slashes=False)
 def login():
     if request.method == 'POST':
-        data = request.get_json()
-        username = data.get('username')
-        password = data.get('password')
+        try:
+            data = request.get_json()
+            username = data.get('username')
+            password = data.get('password')
 
-        if not username or not password:
-            return jsonify({"data": {}, 'error': 'Username and password are required'}), 400
+            if not username or not password:
+                return jsonify({"data": {}, 'error': 'Username and password are required'}), 400
 
-        account = Account.query.filter_by(username=username).first()
+            account = Account.query.filter_by(username=username).first()
 
-        if account and check_password_hash(account.password_hash, password):
-            session['authenticated'] = True
-            session['username'] = username
-            session['login_time'] = datetime.datetime.now() 
-            return jsonify({"data": {"response": "Login successful", "authenticated": True}}), 200
-        else:
-            return jsonify({"data": {}, 'error': 'Invalid username or password'}), 401
+            if account and check_password_hash(account.password_hash, password):
+                session['authenticated'] = True
+                session['username'] = username
+                session['login_time'] = datetime.datetime.now() 
+                return jsonify({"data": {"response": "Login successful", "authenticated": True}}), 200
+            else:
+                return jsonify({"data": {}, 'error': 'Invalid username or password'}), 401
+        except Exception as e:
+            logger.error('Error serving %s: %s' % (request.path, e))
+            return jsonify({'data': {}, 'error': 'Could serve web application, check logs for more details..'}), 500
 
 @app.route("/auth/logout/", methods=['GET', 'POST'], strict_slashes=False)
 @authenticated
