@@ -21,7 +21,9 @@ from codecs import encode
 import secrets
 
 # Global Config
-basedir = os.path.abspath(os.path.dirname(__file__))
+local_path = os.path.dirname(os.path.abspath(__file__))
+config_file = local_path+'/config/settings.cfg'
+secret_file = local_path+'/config/secret.uti'
 db_user = os.environ['POSTGRES_USER']
 db_pass = os.environ['POSTGRES_PASSWORD']
 db_host = "info-db"
@@ -37,7 +39,8 @@ logger = logging.getLogger('root')
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#app.config.from_object(os.environ['APP_SETTINGS'])  # TODO check if can simplify loading config
+# TODO check if can simplify loading config
+#app.config.from_object(os.environ['APP_SETTINGS'])
 
 # DB Session
 db.init_app(app)
@@ -392,24 +395,6 @@ def get_url_map():
 #             return jsonify({"data": {}, "error": "Password needs to be specified"}), 500
 #     else:
 #         return jsonify({"data": {}, "error": "Incorrect request method"}), 500
-
-# def store_password(password):
-#     global config_file
-#     try:
-#         config = ConfigParser.ConfigParser()
-#         if os.path.isfile(config_file):
-#             config.readfp(open(config_file))
-#             if 'admin' in config.sections():
-#                 config.remove_section('admin')
-#         config.add_section('admin')
-#         config.set('admin', 'password', obfuscate(password))
-
-#         with open(config_file, 'w') as outfile:
-#             config.write(outfile)
-
-#         return True
-#     except Exception:
-#         return False
 
 # Main
 if __name__ == "__main__":
