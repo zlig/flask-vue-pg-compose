@@ -31,7 +31,7 @@ db_port = "5432"
 db_name = os.environ['POSTGRES_DB']
 db_uri = f'postgresql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
 
-# Logging
+# Loggingb
 logging.basicConfig(format='[%(asctime)-15s] [%(threadName)s] %(levelname)s %(message)s', level=logging.INFO)
 logger = logging.getLogger('root')
 
@@ -74,7 +74,7 @@ def generate_string(length):
 def generate_number(minimum=1, maximum=100):
     return random.randint(minimum, maximum)
 
-def store_password(password):
+def store_admin_password(password):
     global config_file
     try:
         config = configparser.ConfigParser()
